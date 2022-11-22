@@ -1,0 +1,25 @@
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-image: url('https://source.unsplash.com/random');
+  background-color: blue;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 45%;
+  max-width: 350px;
+  min-height: 175;
+  padding: 1rem;
+  color: white;
+  border-radius: 20px;
+  background-color: #414040e6;
+}
+
+.login-container>button {
+  margin-top: 1rem;
+}
