@@ -4,6 +4,7 @@ main {
   justify-content: center;
   height: 100vh;
   background-image: url('https://source.unsplash.com/random');
+  background-size: cover;
   background-color: blue;
 }
 

@@ -1,9 +1,9 @@
 import Nav from '../components/Nav';
 
-export default function ShoppingList(){
+export default function ShoppingList() {
   return (
     <>
-    <Nav />
+      <Nav />
       <h1>Shopping List Page</h1>
     </>
   )

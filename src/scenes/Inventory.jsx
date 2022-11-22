@@ -1,11 +1,15 @@
 import { useEffect, useContext, useState } from 'react';
 import { UserContext } from '../App';
-
-import Nav from '../components/Nav'
+import Nav from '../components/Nav';
+import AddNew from '../components/AddNew';
+import { Button } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import '../assets/inventory.css';
 
 export default function Inventory() {
   const { token } = useContext(UserContext);
-  const [list, setList] = useState([])
+  const [list, setList] = useState([]);
+  const [showAddNew, setShowAddNew] = useState(false);
   useEffect(() => {
     fetch(process.env.REACT_APP_ENDPOINT + '/inventory', {
       method: 'GET',
@@ -15,7 +19,7 @@ export default function Inventory() {
       }
     })
       .then(res => res.json())
-      .then((result)=>setList(result.message))
+      .then((result) => setList(result.message))
       .catch(console.error)
   }, [token])
   return (
@@ -31,6 +35,15 @@ export default function Inventory() {
             </>
           ))
       }
+      {showAddNew && <AddNew setShowAddNew={setShowAddNew} />}
+      <Button
+        className='modal-btn'
+        onClick={()=>setShowAddNew(true)}
+        size='large'
+        shape='circle'
+        type='primary'
+        icon={<PlusOutlined />}
+      />
     </>
   )
 }
