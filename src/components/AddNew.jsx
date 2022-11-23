@@ -8,20 +8,49 @@ import '../assets/AddNew.css';
 
 export default function AddNew({ setShowAddNew }) {
 
-  const handleSubmit = (values) => {
-    values.inventory = Number(values.inventory)
-    values.price = Number(values.price)
-    values.threshold = Number(values.threshold)
-    console.log({ values })
+  const defaultValues = {
+    type: "",
+    inventory: 0, //chech for NaN
+    productName: "",
+    replaceBy: "2022-12-07",
+    precentRemaining: 0,
+    
+    image: {},
+    brand: "",
+    price: 0,
+    group: "",
+    store: "",
+    url: "",
+    notes: "",
+
+    restock: true, //check for undefined
+    threshold: 0,  //check for NaN
   }
 
   const [type, setType] = useState('stockable')
+  const [percent, setPercent] = useState(100);
+
+  const handleSubmit = (values) => {
+    const newValues = {
+      ...values,
+      inventory: Number(values.inventory),
+      price: Number(values.price),
+      threshold: Number(values.threshold),
+      type: type,
+      percentRamining: percent
+    }
+
+    //Capitalize productName
+    //Add function for threshold to convert to a date
+    //Convert image to text
+
+    console.log(newValues);
+  }
+
 
   const handleTypeChange = (e) => {
     setType(e.target.value)
   }
-
-  const [percent, setPercent] = useState(100);
 
   const increase = () => {
     let newPercent = percent + 10;
@@ -76,7 +105,7 @@ export default function AddNew({ setShowAddNew }) {
             <Input type='date' />
           </Form.Item>
 
-          <Form.Item label='How much do you have?' required>
+          <Form.Item label='How much do you have left?' required>
             <Progress
               type="circle"
               percent={percent}
@@ -148,26 +177,21 @@ export default function AddNew({ setShowAddNew }) {
 
               {/* Thresholds */}
               {
-                type && type == "stockable"
+                type && type === "stockable"
                   ? <><Form.Item name='threshold'
                     label='Remind me when I only have X units left'>
-                    <Input type='number' min='0' defaultValue={1}/>
+                    <Input type='number' min='0' defaultValue={1} />
                   </Form.Item></>
-                  : type == "consumable"
+                  : type === "consumable"
                     ? <><Form.Item name='threshold'
                       label='Reming me when the container is at X%'>
-                      <Input type='number' min='0' max='100' defaultValue={25}/>
+                      <Input type='number' min='0' max='100' defaultValue={25} />
                     </Form.Item></>
-                    :<> <Form.Item name='threshold'
+                    : <> <Form.Item name='threshold'
                       label='Remind me X days before the replace by date'>
                       <Input type='number' defaultValue={7} />
                     </Form.Item></>
               }
-
-
-
-
-
             </Panel>
           </Collapse>
 
