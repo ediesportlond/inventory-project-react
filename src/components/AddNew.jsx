@@ -9,10 +9,16 @@ import '../assets/AddNew.css';
 export default function AddNew({ setShowAddNew }) {
 
   const handleSubmit = (values) => {
-    values.inventory =Number(values.inventory)
-    values.price =Number(values.price)
-    values.threshold =Number(values.threshold)
+    values.inventory = Number(values.inventory)
+    values.price = Number(values.price)
+    values.threshold = Number(values.threshold)
     console.log({ values })
+  }
+
+  const [type, setType] = useState('stockable')
+
+  const handleTypeChange = (e) => {
+    setType(e.target.value)
   }
 
   const [percent, setPercent] = useState(100);
@@ -44,9 +50,9 @@ export default function AddNew({ setShowAddNew }) {
         <Form onFinish={handleSubmit} layout='vertical'>
 
           <Form.Item label='When do you want to restock?' required >
-            <Radio.Group name="type" >
+            <Radio.Group name="type" defaultValue={type} onChange={handleTypeChange}>
               <Space direction="vertical">
-                <Radio value={"stockable"}>When my shelf is almost empty</Radio>
+                <Radio value={"stockable"} >When my shelf is almost empty</Radio>
                 <Radio value={"consumable"}>When the container is running low</Radio>
                 <Radio value={"perishable"}>Before a certain date</Radio>
               </Space>
@@ -134,27 +140,34 @@ export default function AddNew({ setShowAddNew }) {
             <Panel header="Options" key="2">
               <Form.Item name='restock'
                 label='Exclude from shopping list' >
-                <Radio.Group name="type" >
-                  <Radio value={true} selected>No</Radio>
-                  <Radio value={false}>Yes</Radio>
+                <Radio.Group name="type" defaultValue={'true'}>
+                  <Radio value={'true'} >No</Radio>
+                  <Radio value={'false'}>Yes</Radio>
                 </Radio.Group>
               </Form.Item>
 
               {/* Thresholds */}
-              <Form.Item name='threshold'
-                label='Remind me X days before the replace by date'>
-                <Input type='number' />
-              </Form.Item>
+              {
+                type && type == "stockable"
+                  ? <><Form.Item name='threshold'
+                    label='Remind me when I only have X units left'>
+                    <Input type='number' min='0' defaultValue={1}/>
+                  </Form.Item></>
+                  : type == "consumable"
+                    ? <><Form.Item name='threshold'
+                      label='Reming me when the container is at X%'>
+                      <Input type='number' min='0' max='100' defaultValue={25}/>
+                    </Form.Item></>
+                    :<> <Form.Item name='threshold'
+                      label='Remind me X days before the replace by date'>
+                      <Input type='number' defaultValue={7} />
+                    </Form.Item></>
+              }
 
-              <Form.Item name='threshold'
-                label='Remind me when I only have X units left'>
-                <Input type='number' min='0' />
-              </Form.Item>
 
-              <Form.Item name='threshold'
-                label='Reming me when the container is at X%'>
-                <Input type='number' min='0' max='100' />
-              </Form.Item>
+
+
+
             </Panel>
           </Collapse>
 
