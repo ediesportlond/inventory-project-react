@@ -47,6 +47,7 @@ export default function AddNew({ setShowAddNew }) {
   const [percent, setPercent] = useState(100);
 
   const handleSubmit = () => {
+    console.log(values)
     setValues({
       ...values,
       inventory: Number(values.inventory),
@@ -54,21 +55,23 @@ export default function AddNew({ setShowAddNew }) {
       percentRemaining: percent
     })
 
-    if (values.type === 'stockable') {
+    if (values.threshold) values.threshold = Number(values.threshold)
+
+    if (values.type === 'stockable' && !values.threshold) {
       values.threshold = 1
-    } else if (values.type === 'consumable') {
+    } else if (values.type === 'consumable' && !values.threshold) {
       values.threshold = 25
-    } else if (values.type === 'perishable'){
+    } else if (values.type === 'perishable' &&  !values.threshold) {
       values.threshold = generateThreshold(values.replaceBy, 7)
-    } else {
+    } else if(values.type === 'perishable'){
       values.threshold = generateThreshold(values.replaceBy, values.threshold)
     }
-    
+
     values.productName = values.productName[0].toUpperCase() + values.productName.substring(1,)
-    if(values.brand) values.brand = values.brand[0].toUpperCase() + values.brand.substring(1,)
-    if(values.group) values.group = values.group[0].toUpperCase() + values.group.substring(1,)
-    if(values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,)
-    if(values.notes) values.notes = values.notes[0].toUpperCase() + values.notes.substring(1,)
+    if (values.brand) values.brand = values.brand[0].toUpperCase() + values.brand.substring(1,)
+    if (values.group) values.group = values.group[0].toUpperCase() + values.group.substring(1,)
+    if (values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,)
+    if (values.notes) values.notes = values.notes[0].toUpperCase() + values.notes.substring(1,)
 
 
     //match date formats
@@ -82,13 +85,14 @@ export default function AddNew({ setShowAddNew }) {
   }
 
   const handleTypeChange = (e) => {
-    
-    if(e.target.value == 'stockable'){
-      setValues({...values, type: e.target.value, threshold: 1})
-    } else if (e.target.value == 'consumable' ){
-      setValues({...values, type: e.target.value, threshold: 25})
+
+    if (e.target.value == 'stockable') {
+      setValues({ ...values, type: e.target.value, threshold: 1 })
+      console.log('type change')
+    } else if (e.target.value == 'consumable') {
+      setValues({ ...values, type: e.target.value, threshold: 25 })
     } else {
-      setValues({...values, type: e.target.value, threshold: 7})
+      setValues({ ...values, type: e.target.value, threshold: 7 })
     }
 
   }
@@ -98,7 +102,7 @@ export default function AddNew({ setShowAddNew }) {
       newPercent = 100;
     }
     setPercent(newPercent);
-    setValues({...values, percentRemaining: newPercent})
+    setValues({ ...values, percentRemaining: newPercent })
   };
   const decline = () => {
     let newPercent = percent - 10;
@@ -106,7 +110,7 @@ export default function AddNew({ setShowAddNew }) {
       newPercent = 0;
     }
     setPercent(newPercent);
-    setValues({...values, percentRemaining: newPercent})
+    setValues({ ...values, percentRemaining: newPercent })
   };
 
   const { Panel } = Collapse
@@ -133,25 +137,25 @@ export default function AddNew({ setShowAddNew }) {
           <Form.Item name="productName"
             label="Product name"
             rules={[{ required: true, message: "Give this product a name." }]} >
-            <Input onChange={(e) => setValues({...values, productName: e.target.value})} />
+            <Input onChange={(e) => setValues({ ...values, productName: e.target.value })} />
           </Form.Item>
 
           <Form.Item name='inventory'
             label="How many do you have?" >
-            <Input type='number' min='0' placeholder={values.inventory} 
-            onChange={(e) => setValues({...values, inventory: e.target.value})}/>
+            <Input type='number' min='0' placeholder={values.inventory}
+              onChange={(e) => setValues({ ...values, inventory: e.target.value })} />
           </Form.Item>
 
           <Form.Item name='replaceBy'
             label="Replace by?"
-            rules={values.type === 'perishable' ? [{required: true, message: "Enter a date"}]: null}
-            >
-            <Input type='date' onChange={(e) => setValues({...values, date: e.target.value})}/>
+            rules={values.type === 'perishable' ? [{ required: true, message: "Enter a date" }] : null}
+          >
+            <Input type='date' onChange={(e) => setValues({...values, replaceBy: e.target.value})} />
           </Form.Item>
 
           <Form.Item name='price'
             label="Price">
-            <Input type='number' min='0' placeholder={0}  onChange={(e) => setValues({...values, price: e.target.value})}/>
+            <Input type='number' min='0' placeholder={0} onChange={(e) => setValues({ ...values, price: e.target.value })} />
           </Form.Item>
 
           <Form.Item label='How much do you have left?'>
@@ -212,30 +216,30 @@ export default function AddNew({ setShowAddNew }) {
             {/* Options */}
             <Panel header="Options" key="2">
               <Form.Item label='Do you want to restock when you run out?' >
-                <Radio.Group name='restock' defaultValue={true} 
-                onChange={(e) => setValues({...values, restock: e.target.value})}>
+                <Radio.Group name='restock' defaultValue={true}
+                  onChange={(e) => setValues({ ...values, restock: e.target.value })}>
                   <Radio value={true} >Yes</Radio>
                   <Radio value={false}>No</Radio>
                 </Radio.Group>
               </Form.Item>
 
               {/* Thresholds */}
-              {
-                values && values.type === "stockable"
-                  ? <><Form.Item name='threshold'
-                    label='Remind me when I only have X units left' >
-                    <Input key={1} type='number' min='0' placeholder={1} onChange={(e) => setValues({...values, threshold: e.target.value})}/>
-                  </Form.Item></>
-                  : values.type === "consumable"
-                    ? <><Form.Item name='threshold'
-                      label='Reming me when the container is at X%' >
-                      <Input key={2} type='number' min='0' max='100' placeholder={25} onChange={(e) => setValues({...values, threshold: e.target.value})} />
-                    </Form.Item></>
-                    : <> <Form.Item name='threshold'
-                      label='Remind me X days before the replace by date' >
-                      <Input key={3} type='number' placeholder={7} onChange={(e) => setValues({...values, threshold: e.target.value})}/>
-                    </Form.Item></>
-              }
+              <label htmlFor='threshold'>{
+                values.type === 'stockable'
+                  ? 'Remind me when I only have X units left'
+                  : values.type === 'consumable'
+                    ? 'Reming me when the container is at X%'
+                    : 'Remind me X days before the replace by date'
+              }</label>
+              <Input name='treshold' type='number' onChange={e => setValues({...values, threshold: e.target.value})}
+                placeholder={
+                  values.type === 'stockable'
+                    ? '1'
+                    : values.type === 'consumable'
+                      ? '25'
+                      : '7'
+                } />
+
             </Panel>
           </Collapse>
 
