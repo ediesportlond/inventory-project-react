@@ -28,9 +28,9 @@ export default function AddNew({ setShowAddNew, setList }) {
 
     restock: true,
     threshold: 0,
-  }
+  };
 
-  async function convertFile(file) {
+  const convertFile = (file) => {
     if (file) {
       // const fileRef = files[0] || ""
       const fileType = file.type || ""
@@ -38,7 +38,6 @@ export default function AddNew({ setShowAddNew, setList }) {
       reader.readAsBinaryString(file)
       reader.onload = (ev) => {
         // convert it to base64
-
         fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/new`, {
           method: "POST",
           headers: {
@@ -55,7 +54,7 @@ export default function AddNew({ setShowAddNew, setList }) {
           .catch(console.error)
       }
     }
-  }
+  };
 
   const generateThreshold = (expiration, threshold) => {
     //option will be num days
@@ -71,7 +70,7 @@ export default function AddNew({ setShowAddNew, setList }) {
     d = d.toDateString();
 
     return d.replace(/^\w{3}\s/, '');
-  }
+  };
 
   const [values, setValues] = useState(defaultValues)
   const [percent, setPercent] = useState(100);
@@ -102,7 +101,7 @@ export default function AddNew({ setShowAddNew, setList }) {
     if (values.notes) values.notes = values.notes[0].toUpperCase() + values.notes.substring(1,)
 
     convertFile(val.image.file.originFileObj)
-  }
+  };
 
   const handleTypeChange = (e) => {
 
@@ -115,7 +114,7 @@ export default function AddNew({ setShowAddNew, setList }) {
       setValues({ ...values, type: e.target.value, threshold: 7 })
     }
 
-  }
+  };
   const increase = () => {
     let newPercent = percent + 10;
     if (newPercent > 100) {

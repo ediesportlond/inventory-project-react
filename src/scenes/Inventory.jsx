@@ -28,7 +28,7 @@ export default function Inventory() {
       <Nav />
       {
         !Array.isArray(list)
-          ? <p>Loading ... ⏱</p>
+          ? <p>⏱ Loading ... ⏱</p>
           : list.map(item => (
             <>
               <p key={item._id}>Item Id {item._id}</p>
