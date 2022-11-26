@@ -22,9 +22,23 @@ export default function AddNew({ setShowAddNew }) {
     store: "",
     url: "",
     notes: "",
+    sku: "",
 
     restock: true,
     threshold: 0,
+  }
+
+  function convertFile(file) {
+    if (file) {
+      // const fileRef = files[0] || ""
+      const fileType = file.type || ""
+      const reader = new FileReader()
+      reader.readAsBinaryString(file)
+      reader.onload = (ev) => {
+        // convert it to base64
+        setValues({...values, image: `data:${fileType};base64,${window.btoa(ev.target.result)}`})
+      }
+    }
   }
 
   const generateThreshold = (expiration, threshold) => {
@@ -34,7 +48,7 @@ export default function AddNew({ setShowAddNew }) {
     const day = hour * 24;
 
     expiration = Date.parse(expiration); //change expiration to ms
-    threshold *= day;   //change threshold days to ms
+    threshold *= day;  //change threshold days to ms
     threshold = expiration - threshold; //subtract days in ms for threshold date
 
     let d = new Date(threshold);
@@ -46,8 +60,7 @@ export default function AddNew({ setShowAddNew }) {
   const [values, setValues] = useState(defaultValues)
   const [percent, setPercent] = useState(100);
 
-  const handleSubmit = () => {
-    console.log(values)
+  const handleSubmit = (val) => {
     setValues({
       ...values,
       inventory: Number(values.inventory),
@@ -55,15 +68,18 @@ export default function AddNew({ setShowAddNew }) {
       percentRemaining: percent
     })
 
+    convertFile(val.image.file.originFileObj)
+
+    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy).toDateString().replace(/^\w{3}\s/, '')
     if (values.threshold) values.threshold = Number(values.threshold)
 
     if (values.type === 'stockable' && !values.threshold) {
       values.threshold = 1
     } else if (values.type === 'consumable' && !values.threshold) {
       values.threshold = 25
-    } else if (values.type === 'perishable' &&  !values.threshold) {
+    } else if (values.type === 'perishable' && !values.threshold) {
       values.threshold = generateThreshold(values.replaceBy, 7)
-    } else if(values.type === 'perishable'){
+    } else if (values.type === 'perishable') {
       values.threshold = generateThreshold(values.replaceBy, values.threshold)
     }
 
@@ -73,12 +89,6 @@ export default function AddNew({ setShowAddNew }) {
     if (values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,)
     if (values.notes) values.notes = values.notes[0].toUpperCase() + values.notes.substring(1,)
 
-
-    //match date formats
-    //fix upload
-    //control state on additional info
-    //Convert image to text
-
     //create post
 
     console.log(values);
@@ -86,10 +96,10 @@ export default function AddNew({ setShowAddNew }) {
 
   const handleTypeChange = (e) => {
 
-    if (e.target.value == 'stockable') {
+    if (e.target.value === 'stockable') {
       setValues({ ...values, type: e.target.value, threshold: 1 })
       console.log('type change')
-    } else if (e.target.value == 'consumable') {
+    } else if (e.target.value === 'consumable') {
       setValues({ ...values, type: e.target.value, threshold: 25 })
     } else {
       setValues({ ...values, type: e.target.value, threshold: 7 })
@@ -150,7 +160,7 @@ export default function AddNew({ setShowAddNew }) {
             label="Replace by?"
             rules={values.type === 'perishable' ? [{ required: true, message: "Enter a date" }] : null}
           >
-            <Input type='date' onChange={(e) => setValues({...values, replaceBy: e.target.value})} />
+            <Input type='date' onChange={(e) => setValues({ ...values, replaceBy: e.target.value })} />
           </Form.Item>
 
           <Form.Item name='price'
@@ -177,39 +187,49 @@ export default function AddNew({ setShowAddNew }) {
             <Panel header="Additional Info" key="1">
               <Form.Item name="image" >
                 <Upload listType="picture-card"
-                  maxCount={1}>
+                  maxCount={1} >
                   Upload an Image
                 </Upload>
               </Form.Item>
 
+              {/* <Form.Item>
+                <Input type='file' name='image' onChange={e => convertFile(e.target.files)} />
+              </Form.Item> */}
+
               <Form.Item name="brand"
                 label="Brand"
               >
-                <Input />
+                <Input onChange={(e) => setValues({ ...values, brand: e.target.value })} />
               </Form.Item>
 
               <Form.Item name="group"
                 label="Group Label"
               >
-                <Input />
+                <Input onChange={(e) => setValues({ ...values, group: e.target.value })} />
               </Form.Item>
 
               <Form.Item name="store"
                 label="Store"
               >
-                <Input />
+                <Input onChange={(e) => setValues({ ...values, store: e.target.value })} />
               </Form.Item>
 
               <Form.Item name="url"
                 label="Link to buy"
               >
-                <Input />
+                <Input onChange={(e) => setValues({ ...values, url: e.target.value })} />
               </Form.Item>
 
               <Form.Item name="notes"
                 label="Notes"
               >
-                <Input />
+                <Input onChange={(e) => setValues({ ...values, notes: e.target.value })} />
+              </Form.Item>
+
+              <Form.Item name="sku"
+                label="SKU"
+              >
+                <Input onChange={(e) => setValues({ ...values, sku: e.target.value })} />
               </Form.Item>
             </Panel>
 
@@ -231,7 +251,7 @@ export default function AddNew({ setShowAddNew }) {
                     ? 'Reming me when the container is at X%'
                     : 'Remind me X days before the replace by date'
               }</label>
-              <Input name='treshold' type='number' onChange={e => setValues({...values, threshold: e.target.value})}
+              <Input name='treshold' type='number' onChange={e => setValues({ ...values, threshold: e.target.value })}
                 placeholder={
                   values.type === 'stockable'
                     ? '1'

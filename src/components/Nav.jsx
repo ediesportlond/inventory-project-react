@@ -12,7 +12,7 @@ export default function Nav(){
       <ul>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='shopping'>Shopping List</Link></li>
-        <li><a href onClick={()=>{
+        <li><a onClick={()=>{
           setUser();
           setToken();
           sessionStorage.setItem("user", "");

@@ -30,8 +30,9 @@ export default function Inventory() {
           ? <p>Loading ... ⏱</p>
           : list.map(item => (
             <>
-              <p>Item Id {item._id}</p>
+              <p key={item._id}>Item Id {item._id}</p>
               <p>User Id {item.uid}</p>
+              <img src={item.image} alt="" width='300' />
             </>
           ))
       }
