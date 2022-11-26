@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../App';
 import {
   Modal, Form, Upload, Input,
   Radio, Space, Button, Progress, Collapse
@@ -6,7 +7,8 @@ import {
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import '../assets/AddNew.css';
 
-export default function AddNew({ setShowAddNew }) {
+export default function AddNew({ setShowAddNew, setList }) {
+  const { token } = useContext(UserContext);
 
   const defaultValues = {
     type: "stockable",
@@ -16,7 +18,7 @@ export default function AddNew({ setShowAddNew }) {
     price: 0,
     percentRemaining: 100,
 
-    image: {},
+    image: "",
     brand: "",
     group: "",
     store: "",
@@ -28,7 +30,7 @@ export default function AddNew({ setShowAddNew }) {
     threshold: 0,
   }
 
-  function convertFile(file) {
+  async function convertFile(file) {
     if (file) {
       // const fileRef = files[0] || ""
       const fileType = file.type || ""
@@ -36,7 +38,21 @@ export default function AddNew({ setShowAddNew }) {
       reader.readAsBinaryString(file)
       reader.onload = (ev) => {
         // convert it to base64
-        setValues({...values, image: `data:${fileType};base64,${window.btoa(ev.target.result)}`})
+
+        fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/new`, {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+          },
+          body: JSON.stringify({ ...values, image: `data:${fileType};base64,${window.btoa(ev.target.result)}` })
+        })
+          .then(res => res.json())
+          .then((res) => {
+            setList(res.message)
+            setShowAddNew(false)
+          })
+          .catch(console.error)
       }
     }
   }
@@ -68,11 +84,6 @@ export default function AddNew({ setShowAddNew }) {
       percentRemaining: percent
     })
 
-    convertFile(val.image.file.originFileObj)
-
-    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy).toDateString().replace(/^\w{3}\s/, '')
-    if (values.threshold) values.threshold = Number(values.threshold)
-
     if (values.type === 'stockable' && !values.threshold) {
       values.threshold = 1
     } else if (values.type === 'consumable' && !values.threshold) {
@@ -82,16 +93,15 @@ export default function AddNew({ setShowAddNew }) {
     } else if (values.type === 'perishable') {
       values.threshold = generateThreshold(values.replaceBy, values.threshold)
     }
-
     values.productName = values.productName[0].toUpperCase() + values.productName.substring(1,)
+    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy).toDateString().replace(/^\w{3}\s/, '')
+    if (values.threshold) values.threshold = Number(values.threshold)
     if (values.brand) values.brand = values.brand[0].toUpperCase() + values.brand.substring(1,)
     if (values.group) values.group = values.group[0].toUpperCase() + values.group.substring(1,)
     if (values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,)
     if (values.notes) values.notes = values.notes[0].toUpperCase() + values.notes.substring(1,)
 
-    //create post
-
-    console.log(values);
+    convertFile(val.image.file.originFileObj)
   }
 
   const handleTypeChange = (e) => {
@@ -191,10 +201,6 @@ export default function AddNew({ setShowAddNew }) {
                   Upload an Image
                 </Upload>
               </Form.Item>
-
-              {/* <Form.Item>
-                <Input type='file' name='image' onChange={e => convertFile(e.target.files)} />
-              </Form.Item> */}
 
               <Form.Item name="brand"
                 label="Brand"

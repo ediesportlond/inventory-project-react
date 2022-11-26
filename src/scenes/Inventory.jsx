@@ -22,11 +22,12 @@ export default function Inventory() {
       .then((result) => setList(result.message))
       .catch(console.error)
   }, [token])
+
   return (
     <>
       <Nav />
       {
-        !list
+        !Array.isArray(list)
           ? <p>Loading ... ⏱</p>
           : list.map(item => (
             <>
@@ -36,7 +37,7 @@ export default function Inventory() {
             </>
           ))
       }
-      {showAddNew && <AddNew setShowAddNew={setShowAddNew} />}
+      {showAddNew && <AddNew setShowAddNew={setShowAddNew} setList={setList}/>}
       <Button
         className='modal-btn'
         onClick={()=>setShowAddNew(true)}
