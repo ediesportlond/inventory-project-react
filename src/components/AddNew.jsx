@@ -94,7 +94,7 @@ export default function AddNew({ setShowAddNew, setList }) {
     }
     values.productName = values.productName[0].toUpperCase() + values.productName.substring(1,)
     if (values.replaceBy) values.replaceBy = new Date(values.replaceBy).toDateString().replace(/^\w{3}\s/, '')
-    if (values.threshold) values.threshold = Number(values.threshold)
+    if (values.type !== 'perishable' && values.threshold) values.threshold = Number(values.threshold)
     if (values.brand) values.brand = values.brand[0].toUpperCase() + values.brand.substring(1,)
     if (values.group) values.group = values.group[0].toUpperCase() + values.group.substring(1,)
     if (values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,)
