@@ -29,7 +29,7 @@ export default function Inventory() {
       })
       .then((result) => setList(result.message))
       .catch(console.error)
-  }, [token])
+  }, [token, setToken, setUser])
 
   return (
     <>
