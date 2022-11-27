@@ -100,14 +100,18 @@ export default function AddNew({ setShowAddNew, setList }) {
     if (values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,)
     if (values.notes) values.notes = values.notes[0].toUpperCase() + values.notes.substring(1,)
 
-    convertFile(val.image.file.originFileObj)
+    if (val.image && val.image.file) {
+      convertFile(val.image.file.originFileObj)
+    } else {
+      console.log(values)
+    }
+    
   };
 
   const handleTypeChange = (e) => {
 
     if (e.target.value === 'stockable') {
       setValues({ ...values, type: e.target.value, threshold: 1 })
-      console.log('type change')
     } else if (e.target.value === 'consumable') {
       setValues({ ...values, type: e.target.value, threshold: 25 })
     } else {
