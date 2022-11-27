@@ -7,7 +7,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import '../assets/inventory.css';
 
 export default function Inventory() {
-  const { token } = useContext(UserContext);
+  const { token, setUser, setToken } = useContext(UserContext);
   const [list, setList] = useState([]);
   const [showAddNew, setShowAddNew] = useState(false);
   useEffect(() => {
@@ -18,7 +18,15 @@ export default function Inventory() {
         'Authorization': token
       }
     })
-      .then(res => res.json())
+      .then(res => {
+        if(res.status === 401){
+          setUser()
+          setToken()
+          sessionStorage.setItem('user', '')
+          sessionStorage.setItem('token', '')
+        }
+        return res.json()
+      })
       .then((result) => setList(result.message))
       .catch(console.error)
   }, [token])
