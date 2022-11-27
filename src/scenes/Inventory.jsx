@@ -33,6 +33,10 @@ export default function Inventory() {
             <>
               <p key={item._id}>Item Id {item._id}</p>
               <p>User Id {item.uid}</p>
+              <h3>{item.productName}</h3>
+              <p>{item.inventory}</p>
+              <p>{item.percentRemaining}</p>
+              <p>{item.replaceBy}</p>
               <img src={item.image} alt="" width='300' />
             </>
           ))

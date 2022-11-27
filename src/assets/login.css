@@ -1,11 +1,11 @@
 main {
+  background-color: rgb(46, 84, 253);
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   background-image: url('https://source.unsplash.com/random');
   background-size: cover;
-  background-color: rgb(46, 84, 253);
 }
 
 .login-container {

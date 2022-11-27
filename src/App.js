@@ -23,16 +23,15 @@ function App() {
     <div className="App">
       <UserContext.Provider value={{ user, setUser, token, setToken }} >
         <Routes>
-        <Route path='update/:oid' element={<Update />} />
-          {/* {
+          {
             !user
               ? <Route path='*' element={<Login />} />
               : <>
                 <Route index element={<Inventory />} />
                 <Route path='shopping' element={<ShoppingList />} />
-                <Route path='update/:id' element={<ShoppingList />} />
+                <Route path='update/:oid' element={<Update />} />
               </>
-          } */}
+          }
         </Routes>
       </UserContext.Provider>
     </div >

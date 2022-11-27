@@ -103,7 +103,20 @@ export default function AddNew({ setShowAddNew, setList }) {
     if (val.image && val.image.file) {
       convertFile(val.image.file.originFileObj)
     } else {
-      console.log(values)
+      fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/new`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        },
+        body: JSON.stringify(values)
+      })
+        .then(res => res.json())
+        .then((res) => {
+          setList(res.message)
+          setShowAddNew(false)
+        })
+        .catch(console.error)
     }
     
   };
@@ -178,7 +191,8 @@ export default function AddNew({ setShowAddNew, setList }) {
 
           <Form.Item name='price'
             label="Price">
-            <Input type='number' min='0' placeholder={0} onChange={(e) => setValues({ ...values, price: e.target.value })} />
+            <Input type='number' min='0' step='.01' placeholder={0} 
+            onChange={(e) => setValues({ ...values, price: e.target.value })} />
           </Form.Item>
 
           <Form.Item label='How much do you have left?'>
