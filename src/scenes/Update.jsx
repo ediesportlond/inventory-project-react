@@ -28,7 +28,7 @@ export default function Update() {
             'Content-Type': 'application/json',
             'Authorization': token
           },
-          body: JSON.stringify({ ...values, image: `data:${fileType};base64,${window.btoa(ev.target.result)}` })
+          body: JSON.stringify({ ...updateValues, image: `data:${fileType};base64,${window.btoa(ev.target.result)}` })
         })
           .then((res) => {
             alert('Item updated succesfully.')
@@ -44,7 +44,7 @@ export default function Update() {
     const hour = minute * 60;
     const day = hour * 24;
 
-    expiration = Date.parse(expiration); //change expiration to ms
+    expiration = Date.parse(expiration+' '); //change expiration to ms
     threshold *= day;  //change threshold days to ms
     threshold = expiration - threshold; //subtract days in ms for threshold date
 
@@ -61,7 +61,7 @@ export default function Update() {
   const handleSubmit = (val) => {
 
     if (!updateValues) return;
-    console.log('raw', updateValues)
+
     //changing the replaceBy date should also recalculate threshold
 
     setUpdateValues({ ...updateValues, percentRemaining: percent })
@@ -101,11 +101,9 @@ export default function Update() {
           'Content-Type': 'application/json',
           'Authorization': token
         },
-        body: JSON.stringify(values)
+        body: JSON.stringify(updateValues)
       })
-        .then((res) => {
-          alert('Item updated succesfully.')
-        })
+        .then(()=>alert("Update succesful"))
         .catch(console.error);
     };
   };

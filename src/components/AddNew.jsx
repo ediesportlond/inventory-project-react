@@ -62,7 +62,7 @@ export default function AddNew({ setShowAddNew, setList }) {
     const hour = minute * 60;
     const day = hour * 24;
 
-    expiration = Date.parse(expiration); //change expiration to ms
+    expiration = Date.parse(expiration+' '); //change expiration to ms
     threshold *= day;  //change threshold days to ms
     threshold = expiration - threshold; //subtract days in ms for threshold date
 
@@ -93,7 +93,7 @@ export default function AddNew({ setShowAddNew, setList }) {
       values.threshold = generateThreshold(values.replaceBy, values.threshold)
     }
     values.productName = values.productName[0].toUpperCase() + values.productName.substring(1,)
-    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy).toDateString().replace(/^\w{3}\s/, '')
+    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy+' ').toDateString().replace(/^\w{3}\s/, '')
     if (values.type !== 'perishable' && values.threshold) values.threshold = Number(values.threshold)
     if (values.brand) values.brand = values.brand[0].toUpperCase() + values.brand.substring(1,)
     if (values.group) values.group = values.group[0].toUpperCase() + values.group.substring(1,)

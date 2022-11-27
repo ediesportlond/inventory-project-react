@@ -22,8 +22,8 @@ export default function Inventory() {
         if(res.status === 401){
           setUser()
           setToken()
-          sessionStorage.setItem('user', '')
-          sessionStorage.setItem('token', '')
+          sessionStorage.removeItem('user')
+          sessionStorage.removeItem('token')
         }
         return res.json()
       })
