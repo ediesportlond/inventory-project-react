@@ -8,8 +8,7 @@ import {
 } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
-// TODO: replaceBy date, display image, fetch when image uploaded, fetch with no image
-//recognize changes when snitizing user input
+// TODO: display image, fetch when image uploaded, fetch with no image
 
 export default function Update() {
   const { token } = useContext(UserContext);
@@ -60,7 +59,7 @@ export default function Update() {
     type: "stockable",
     productName: "Sample Product",
     inventory: 5,
-    replaceBy: "JAN 1 2023",
+    replaceBy: "FEB 3 2023",
     price: 3.50,
     percentRemaining: 80,
 
@@ -78,6 +77,7 @@ export default function Update() {
   const [percent, setPercent] = useState(values.percentRemaining || 100);
 
   const handleSubmit = (val) => {
+
     setValues({
       ...values,
       inventory: Number(values.inventory),
@@ -150,13 +150,23 @@ export default function Update() {
       .then(res => res.json())
       .then((res) => {
         if (typeof res.message === 'object'){
-          setValues(res.message)
+          const months = { JAN: '01', FEB: '02', MAR: '03', APR: '04', 
+          MAY: '05', JUN: '06', JUL: '07', AUG: '08', SEP: '09', OCT: '10', 
+          NOV: '11', DEC: '12' }
+        
+          const date = res.message.replaceBy;
+          const month = months[date.match(/^\w{3}/)];
+          const nums = date.match(/\d+/g);
+          let day = nums[0];
+          let year = nums[1];
+          if(day.length < 2) day = '0' + day;
+          setValues({...res.message, replaceBy:`${year}-${month}-${day}`})
         } else {
-          alert('Server did not respond. Please try again.')
+          console.error('Server did not respond. Please try again.')
         }
       })
       .catch(console.error)
-  }, [oid, token])
+  }, [oid, token, setValues])
 
   const { Panel } = Collapse
 
@@ -189,13 +199,11 @@ export default function Update() {
               onChange={(e) => setValues({ ...values, inventory: e.target.value })} />
           </Form.Item>
 
-          <Form.Item name='replaceBy'
-            label="Replace by?"
-            rules={values.type === 'perishable' ? [{ required: true, message: "Enter a date" }] : null}
-          >
-            <Input 
-            type='date' onChange={(e) => setValues({ ...values, replaceBy: e.target.value })} />
-          </Form.Item>
+            <label htmlfor='replaceBy'>Replace by this date</label><br />
+            <input value={values.replaceBy} name='replaceBy'
+            required={values.type === 'perishable' ? true: false}
+            type='date' onChange={(e) => setValues({...values, replaceBy: e.target.value})} />
+            <br /><br />
 
           <Form.Item name='price'
             label="Price">
