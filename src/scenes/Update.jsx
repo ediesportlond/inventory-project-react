@@ -247,7 +247,7 @@ export default function Update() {
                 label="How many do you have?" >
                 <Input defaultValue={values?.inventory}
                   type='number' min='0'
-                  onChange={(e) => setUpdateValues({ ...updateValues, inventory: e.target.value })} />
+                  onChange={(e) => setUpdateValues({ ...updateValues, inventory: Number(e.target.value) })} />
               </Form.Item>
 
               <label htmlFor='replaceBy'>Replace by this date</label><br />
@@ -260,7 +260,7 @@ export default function Update() {
                 label="Price">
                 <Input defaultValue={values?.price}
                   type='number' min='0' step='.01' placeholder={0}
-                  onChange={(e) => setUpdateValues({ ...updateValues, price: e.target.value })} />
+                  onChange={(e) => setUpdateValues({ ...updateValues, price: Number(e.target.value) })} />
               </Form.Item>
 
               <Form.Item label='How much do you have left?'>
@@ -343,7 +343,7 @@ export default function Update() {
                         : 'Remind me X days before the replace by date'
                   }</label>
                   <Input name='treshold'
-                    min='0' type='number' onChange={e => setUpdateValues({ ...updateValues, threshold: e.target.value })}
+                    min='0' type='number' onChange={e => setUpdateValues({ ...updateValues, threshold: Number(e.target.value) })}
                     placeholder={updateValues?.threshold || values.threshold} />
                 </Panel>
               </Collapse>
