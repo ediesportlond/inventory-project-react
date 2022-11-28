@@ -8,8 +8,6 @@ import {
 } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
-// TODO: changing replaceBy date should recalculate threshold date, display image
-
 export default function Update() {
   const { token } = useContext(UserContext);
   const { oid } = useParams();
@@ -65,9 +63,7 @@ export default function Update() {
 
   const handleSubmit = (val) => {
 
-    if (!updateValues) return;
-
-    //changing the replaceBy date should also recalculate threshold
+    if (!updateValues && !val?.image) return;
 
     setUpdateValues({ ...updateValues, percentRemaining: percent })
 
@@ -209,6 +205,11 @@ export default function Update() {
     <>
       <Nav />
       <section style={{ margin: '1rem 2rem 1rem 2rem' }}>
+        {
+          values && values.image
+          ? <img src={values.image} alt={`Image of ${values.productName}`} />
+          : null
+        }
         {
           values
             ? <Form onFinish={handleSubmit} layout='vertical'>
