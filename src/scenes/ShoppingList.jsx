@@ -1,6 +1,8 @@
 import { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { List } from 'antd';
 import { UserContext } from '../App';
+import UpdateCard from '../components/UpdateCard';
 
 export default function ShoppingList() {
   const { token, setUser, setToken } = useContext(UserContext);
@@ -38,23 +40,15 @@ export default function ShoppingList() {
       <br />
       <p> Estimated cost {cost} </p>
       <br />
-      <section>
-      {
-        !Array.isArray(list)
-          ? <p>⏱ Loading ... ⏱</p>
-          : list.map(item => (
-            <>
-              <p key={item._id}>Item Id {item._id}</p>
-              <p>User Id {item.uid}</p>
-              <h3>{item.productName}</h3>
-              <p>{item.inventory}</p>
-              <p>{item.percentRemaining}</p>
-              <p>{item.replaceBy}</p>
-              <img src={item.image} alt="" width='300' />
-            </>
-          ))
-      }
-      </section>
+      <List
+        grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3}}
+        dataSource={list}
+        renderItem={item => (
+          <List.Item key={item._id}>
+              <UpdateCard item={item}/>
+          </List.Item>
+        )}
+      />
     </>
   )
 }
