@@ -77,7 +77,6 @@ export default function Update() {
   };
 
   const handleSubmit = (val) => {
-
     if (!updateValues && !val?.image) return;
 
     setUpdateValues({ ...updateValues, percentRemaining: percent })
@@ -143,7 +142,7 @@ export default function Update() {
       newPercent = 100;
     }
     setPercent(newPercent);
-    setValues({ ...values, percentRemaining: newPercent })
+    setUpdateValues({ ...updateValues, percentRemaining: newPercent })
   };
 
   const decline = () => {
@@ -152,7 +151,7 @@ export default function Update() {
       newPercent = 0;
     }
     setPercent(newPercent);
-    setValues({ ...values, percentRemaining: newPercent })
+    setUpdateValues({ ...updateValues, percentRemaining: newPercent });
   };
 
   const handleDateChange = (e) => {

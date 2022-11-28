@@ -62,8 +62,14 @@ export default function AddNew({ setShowAddNew, setList }) {
     const hour = minute * 60;
     const day = hour * 24;
 
-    expiration = Date.parse(expiration+' '); //change expiration to ms
-    threshold *= day;  //change threshold days to ms
+    if (isNaN(threshold)) {
+      threshold = Date.parse(values?.replaceBy + ' ') - Date.parse(threshold + ' ')
+
+    } else {
+      threshold *= day;  //change threshold days to ms
+    }
+
+    expiration = Date.parse(expiration + ' '); //change expiration to ms
     threshold = expiration - threshold; //subtract days in ms for threshold date
 
     let d = new Date(threshold);
@@ -88,12 +94,6 @@ export default function AddNew({ setShowAddNew, setList }) {
   const [percent, setPercent] = useState(100);
 
   const handleSubmit = (val) => {
-    setValues({
-      ...values,
-      inventory: Number(values.inventory),
-      price: Number(values.price),
-      percentRemaining: percent
-    })
 
     if (values.type === 'stockable' && !values.threshold) {
       values.threshold = 1
@@ -105,8 +105,8 @@ export default function AddNew({ setShowAddNew, setList }) {
       values.threshold = generateThreshold(values.replaceBy, values.threshold)
     }
     values.productName = values.productName[0].toUpperCase() + values.productName.substring(1,)
-    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy+' ').toDateString().replace(/^\w{3}\s/, '')
-    if (values.type !== 'perishable' && values.threshold) values.threshold = Number(values.threshold)
+    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy + ' ').toDateString().replace(/^\w{3}\s/, '')
+    // if (values.type !== 'perishable' && values.threshold) values.threshold = Number(values.threshold)
     if (values.brand) values.brand = values.brand[0].toUpperCase() + values.brand.substring(1,)
     if (values.group) values.group = values.group[0].toUpperCase() + values.group.substring(1,)
     if (values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,)
@@ -130,7 +130,7 @@ export default function AddNew({ setShowAddNew, setList }) {
         })
         .catch(console.error)
     }
-    
+
   };
 
   const handleTypeChange = (e) => {
@@ -191,7 +191,7 @@ export default function AddNew({ setShowAddNew, setList }) {
           <Form.Item name='inventory'
             label="How many do you have?" >
             <Input type='number' min='0' placeholder={values.inventory}
-              onChange={(e) => setValues({ ...values, inventory: e.target.value })} />
+              onChange={(e) => setValues({ ...values, inventory: Number(e.target.value) })} />
           </Form.Item>
 
           <Form.Item name='replaceBy'
@@ -203,8 +203,8 @@ export default function AddNew({ setShowAddNew, setList }) {
 
           <Form.Item name='price'
             label="Price">
-            <Input type='number' min='0' step='.01' placeholder={0} 
-            onChange={(e) => setValues({ ...values, price: e.target.value })} />
+            <Input type='number' min='0' step='.01' placeholder={0}
+              onChange={(e) => setValues({ ...values, price: Number(e.target.value) })} />
           </Form.Item>
 
           <Form.Item label='How much do you have left?'>
@@ -286,7 +286,7 @@ export default function AddNew({ setShowAddNew, setList }) {
                     ? 'Reming me when the container is at X%'
                     : 'Remind me X days before the replace by date'
               }</label>
-              <Input name='treshold' type='number' onChange={e => setValues({ ...values, threshold: e.target.value })}
+              <Input name='treshold' type='number' onChange={e => setValues({ ...values, threshold: Number(e.target.value) })}
                 placeholder={
                   values.type === 'stockable'
                     ? '1'
