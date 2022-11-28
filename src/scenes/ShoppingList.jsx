@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
-import Nav from '../components/Nav';
 
 export default function ShoppingList() {
   const { token, setUser, setToken } = useContext(UserContext);
@@ -16,7 +16,7 @@ export default function ShoppingList() {
       }
     })
       .then(res => {
-        if(res.status === 401){
+        if (res.status === 401) {
           setUser()
           setToken()
           sessionStorage.removeItem('user')
@@ -33,8 +33,12 @@ export default function ShoppingList() {
 
   return (
     <>
-      <Nav />
-      Estimated cost {cost}
+      <Link to='/' >&lt; Go Back</Link>
+      <br />
+      <br />
+      <p> Estimated cost {cost} </p>
+      <br />
+      <section>
       {
         !Array.isArray(list)
           ? <p>⏱ Loading ... ⏱</p>
@@ -50,6 +54,7 @@ export default function ShoppingList() {
             </>
           ))
       }
+      </section>
     </>
   )
 }

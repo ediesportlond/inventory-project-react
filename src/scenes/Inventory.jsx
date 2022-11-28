@@ -1,8 +1,9 @@
 import { useEffect, useContext, useState } from 'react';
+import {Link} from 'react-router-dom';
 import { UserContext } from '../App';
 import Nav from '../components/Nav';
 import AddNew from '../components/AddNew';
-import { Button } from 'antd';
+import { Button, Avatar, Card, List } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import '../assets/inventory.css';
 
@@ -19,7 +20,7 @@ export default function Inventory() {
       }
     })
       .then(res => {
-        if(res.status === 401){
+        if (res.status === 401) {
           setUser()
           setToken()
           sessionStorage.removeItem('user')
@@ -34,7 +35,26 @@ export default function Inventory() {
   return (
     <>
       <Nav />
-      {
+
+      <List
+        grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3}}
+        dataSource={list}
+        renderItem={item => (
+          <List.Item key={item._id}>
+            <Link to={`/update/${item._id}`} >
+              <Card title={item.productName} extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />}>
+                <>
+                  <p>Available {item.inventory}</p>
+                  <p>Percent Remaining {item.percentRemaining}</p>
+                  {item.replaceBy ? <p>Replace By {item.replaceBy}</p>: null}
+                </>
+              </Card>
+            </Link>
+          </List.Item>
+        )}
+      />
+
+      {/* {
         !Array.isArray(list)
           ? <p>⏱ Loading ... ⏱</p>
           : list.map(item => (
@@ -48,11 +68,12 @@ export default function Inventory() {
               <img src={item.image} alt="" width='300' />
             </>
           ))
-      }
-      {showAddNew && <AddNew setShowAddNew={setShowAddNew} setList={setList}/>}
+      } */}
+
+      {showAddNew && <AddNew setShowAddNew={setShowAddNew} setList={setList} />}
       <Button
         className='modal-btn'
-        onClick={()=>setShowAddNew(true)}
+        onClick={() => setShowAddNew(true)}
         size='large'
         shape='circle'
         type='primary'

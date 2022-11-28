@@ -1,7 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { UserContext } from '../App';
-import Nav from '../components/Nav';
 import {
   Form, Radio, Space, Input, Progress,
   Button, Collapse, Upload
@@ -217,7 +216,7 @@ export default function Update() {
 
   return (
     <>
-      <Nav />
+      <Link to='/' >&lt; Go Back</Link>
       <section style={{ margin: '1rem 2rem 1rem 2rem' }}>
         {
           values && values.image
