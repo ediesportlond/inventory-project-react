@@ -8,11 +8,15 @@ import {
 } from 'antd';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 
-// TODO: fetch when image uploaded, fetch with no image, display image
+// TODO: changing replaceBy date should recalculate threshold date, display image
 
 export default function Update() {
   const { token } = useContext(UserContext);
   const { oid } = useParams();
+
+  const [values, setValues] = useState();
+  const [updateValues, setUpdateValues] = useState();
+  const [percent, setPercent] = useState(values?.percentRemaining || 100);
 
   const convertFile = (file) => {
     if (file) {
@@ -44,8 +48,13 @@ export default function Update() {
     const hour = minute * 60;
     const day = hour * 24;
 
-    expiration = Date.parse(expiration+' '); //change expiration to ms
-    threshold *= day;  //change threshold days to ms
+    if (isNaN(threshold)) {
+      threshold = Date.parse(values?.replaceBy + ' ') - Date.parse(threshold + ' ')
+    } else {
+      threshold *= day;  //change threshold days to ms
+    }
+
+    expiration = Date.parse(expiration + ' '); //change expiration to ms
     threshold = expiration - threshold; //subtract days in ms for threshold date
 
     let d = new Date(threshold);
@@ -53,10 +62,6 @@ export default function Update() {
 
     return d.replace(/^\w{3}\s/, '');
   };
-
-  const [values, setValues] = useState();
-  const [updateValues, setUpdateValues] = useState();
-  const [percent, setPercent] = useState(values?.percentRemaining || 100);
 
   const handleSubmit = (val) => {
 
@@ -67,26 +72,26 @@ export default function Update() {
     setUpdateValues({ ...updateValues, percentRemaining: percent })
 
     let type, threshold;
-    if(updateValues?.threshold && updateValues.type){
+    if (updateValues?.threshold && updateValues.type) {
       type = updateValues.type;
       threshold = updateValues.threshold;
-    } else if ( updateValues?.threshold ){
+    } else if (updateValues?.threshold) {
       type = values.type;
       threshold = updateValues.threshold;
     }
 
-    if(type && threshold){
-      if(type !== 'perishable'){
+    if (type && threshold) {
+      if (type !== 'perishable') {
         updateValues.threshold = Number(updateValues.threshold);
-      } else if(updateValues?.replaceBy){
-          updateValues.threshold = generateThreshold(updateValues.replaceBy, updateValues.threshold);
-        } else {
+      } else if (updateValues?.replaceBy && !isNaN(updateValues.threshold)) {
+        updateValues.threshold = generateThreshold(updateValues.replaceBy, updateValues.threshold);
+      } else {
         updateValues.threshold = generateThreshold(values.replaceBy, updateValues.threshold);
       }
     }
 
     if (updateValues?.productName) updateValues.productName = updateValues.productName[0].toUpperCase() + updateValues.productName.substring(1,)
-    if (updateValues?.replaceBy) updateValues.replaceBy = new Date(updateValues.replaceBy+' ').toDateString().replace(/^\w{3}\s/, '')
+    if (updateValues?.replaceBy) updateValues.replaceBy = new Date(updateValues.replaceBy + ' ').toDateString().replace(/^\w{3}\s/, '')
     if (updateValues?.brand) updateValues.brand = updateValues.brand[0].toUpperCase() + updateValues.brand.substring(1,)
     if (updateValues?.group) updateValues.group = updateValues.group[0].toUpperCase() + updateValues.group.substring(1,)
     if (updateValues?.store) updateValues.store = updateValues.store[0].toUpperCase() + updateValues.store.substring(1,)
@@ -103,7 +108,7 @@ export default function Update() {
         },
         body: JSON.stringify(updateValues)
       })
-        .then(()=>alert("Update succesful"))
+        .then(() => alert("Update succesful"))
         .catch(console.error);
     };
   };
@@ -138,6 +143,30 @@ export default function Update() {
     setPercent(newPercent);
     setValues({ ...values, percentRemaining: newPercent })
   };
+
+  const handleDateChange = (e) => {
+
+    if (updateValues?.type && updateValues.type === 'perishable') {
+
+      const newThreshold = generateThreshold(e.target.value, updateValues.threshold);
+      setUpdateValues({ ...updateValues, threshold: newThreshold, replaceBy: e.target.value });
+      return;
+
+    } else if (values?.type === 'perishable' && updateValues?.threshold) {
+
+      const newThreshold = generateThreshold(e.target.value, updateValues.threshold)
+      setUpdateValues({ ...updateValues, threshold: newThreshold, replaceBy: e.target.value });
+      return;
+
+    } else if (values?.type === 'perishable') {
+
+      const newThreshold = generateThreshold(e.target.value, values.threshold);
+      setUpdateValues({ ...updateValues, threshold: newThreshold, replaceBy: e.target.value });
+      return;
+
+    }
+    setUpdateValues({ ...updateValues, replaceBy: e.target.value });
+  }
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/single/${oid}`, {
@@ -210,7 +239,7 @@ export default function Update() {
               <label htmlFor='replaceBy'>Replace by this date</label><br />
               <input value={updateValues?.replaceBy || values?.replaceBy} name='replaceBy'
                 required={values?.type === 'perishable' ? true : false}
-                type='date' onChange={(e) => setUpdateValues({ ...updateValues, replaceBy: e.target.value })} />
+                type='date' onChange={handleDateChange} />
               <br /><br />
 
               <Form.Item name='price'
@@ -300,8 +329,8 @@ export default function Update() {
                         : 'Remind me X days before the replace by date'
                   }</label>
                   <Input name='treshold'
-                    min='0' type='number' onChange={e => setUpdateValues({ ...updateValues, threshold: e.target.value })} 
-                    placeholder={updateValues?.threshold || values.threshold}/>
+                    min='0' type='number' onChange={e => setUpdateValues({ ...updateValues, threshold: e.target.value })}
+                    placeholder={updateValues?.threshold || values.threshold} />
                 </Panel>
               </Collapse>
 
