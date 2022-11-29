@@ -216,7 +216,7 @@ export default function Update() {
 
   return (
     <>
-      <Link to='/' >&lt; Go Back</Link>
+      <Link to='/' >&larr; Go Back</Link>
       <section style={{ margin: '1rem 2rem 1rem 2rem' }}>
         {
           values && values.image

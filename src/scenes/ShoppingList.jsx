@@ -35,7 +35,7 @@ export default function ShoppingList() {
 
   return (
     <>
-      <Link to='/' >&lt; Go Back</Link>
+      <Link to='/' >&larr; Go Back</Link>
       <br />
       <br />
       <p> Estimated cost ${cost} </p>
