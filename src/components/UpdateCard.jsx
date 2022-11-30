@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../App';
-
 import { Card, Avatar, Button, Input } from 'antd';
+import '../assets/updateCard.css';
 
 export default function UpdateCard({ item }) {
   const { token } = useContext(UserContext);
@@ -135,51 +135,50 @@ export default function UpdateCard({ item }) {
   }
   return (
     <>
-      <Card title={item.productName} extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />}
-        style={{
-          minWidth: '325px'
-        }}>
+      <Card className='update-card' title={item.productName} 
+      hoverable
+      extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />} >
         <>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className='row' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div className='column' style={{ width: '30%', display: 'flex', justifyContent: 'flex-start' }}>
+          <div className='update-card-body' >
+            <div className='row' >
+              <div className='column start'>
                 <p>Available:</p>
               </div>
-              <div className='column' style={{ width: '30%', display: 'flex', justifyContent: 'center' }}>
+              <div className='column'>
                 <p>{inventory}</p>
               </div>
-              <div className='column' style={{ width: '30%', display: 'flex', justifyContent: 'flex-end' }}>
-                <div>
+              <div className='column end' style={{ width: '30%', display: 'flex', justifyContent: 'flex-end' }}>
+                <div className='button-container'>
                   <Button onClick={decreaseInventory}>➖</Button>
                   <Button onClick={increaseInventory}>➕</Button>
                 </div>
               </div>
             </div>
 
-            <div className='row' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div className='column' style={{ width: '30%', display: 'flex', justifyContent: 'flex-start' }}>
+            <div className='row' >
+              <div className='column start'>
                 <p>Percent Remaining:</p>
               </div>
-              <div className='column' style={{ width: '30%', display: 'flex', justifyContent: 'center' }}>
+              <div className='column'>
                 <p>{percent}%</p>
               </div>
-              <div className='column' style={{ width: '30%', display: 'flex', justifyContent: 'flex-end' }}>
-                <div>
+              <div className='column end'>
+                <div className='button-container'>
                   <Button onClick={decreasePercent}>➖</Button>
                   <Button onClick={increasePercent}>➕</Button>
                 </div>
               </div>
             </div>
 
-            <div className='row' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className='row' >
 
-              <div className='column' style={{ width: '30%', display: 'flex', justifyContent: 'flex-start' }}>
+              <div className='column start'>
                 <p>Replace By:</p>
               </div>
-              <div className='column' style={{ width: '30%', display: 'flex', justifyContent: 'center' }}>
+              <div className='column'>
                 <p>{date}</p>
               </div>
-              <div className='column' style={{ width: '30%', display: 'flex', justifyContent: 'flex-end' }}>
+              <div className='column end'>
                 <Input type='date' defaultValue={item.replaceBy} onChange={handleDateChange} />
               </div>
             </div>

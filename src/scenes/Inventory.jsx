@@ -42,7 +42,8 @@ export default function Inventory() {
         renderItem={item => (
           <List.Item key={item._id}>
             <Link to={`/update/${item._id}`} >
-              <Card title={item.productName} extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />}>
+              <Card title={item.productName} hoverable
+              extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />}>
                 <>
                   <p>Available: {item.inventory}</p>
                   <p>Percent Remaining: {item.percentRemaining}%</p>

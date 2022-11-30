@@ -1,0 +1,41 @@
+.update-card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.update-card-body>.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.row > .column {
+  display: flex;
+  width: 30%;
+}
+
+.start {
+  justify-content: flex-start;
+}
+.end {
+  justify-content: flex-end;
+}
+
+.column > .button-container{
+  display: flex;
+}
+
+.update-card {
+  min-width: 325px;
+}
+
+.ant-row > div {
+  min-width: 325px;
+}
+
+@media only screen and (min-width: 767px) {
+  .ant-row{
+    flex-flow: row wrap;
+    justify-content: space-around;
+  }
+}
