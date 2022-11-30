@@ -3,3 +3,8 @@
   bottom: 1rem;
   left: 45%;
 }
+
+.delete-container{
+  display: flex;
+  justify-content: center;
+}
