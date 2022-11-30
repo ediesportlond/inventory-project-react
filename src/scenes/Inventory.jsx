@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import { UserContext } from '../App';
 import Nav from '../components/Nav';
 import AddNew from '../components/AddNew';
+import SearchBar from '../components/SearchBar';
 import { Button, Avatar, Card, List } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import '../assets/inventory.css';
@@ -35,7 +36,7 @@ export default function Inventory() {
   return (
     <>
       <Nav />
-
+      <SearchBar />
       <List
         grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3}}
         dataSource={list}
