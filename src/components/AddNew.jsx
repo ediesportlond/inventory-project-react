@@ -145,7 +145,7 @@ export default function AddNew({ setShowAddNew, setList }) {
 
   };
   const increase = () => {
-    let newPercent = percent + 10;
+    let newPercent = percent + 5;
     if (newPercent > 100) {
       newPercent = 100;
     }
@@ -153,7 +153,7 @@ export default function AddNew({ setShowAddNew, setList }) {
     setValues({ ...values, percentRemaining: newPercent })
   };
   const decline = () => {
-    let newPercent = percent - 10;
+    let newPercent = percent - 5;
     if (newPercent < 0) {
       newPercent = 0;
     }
@@ -226,6 +226,7 @@ export default function AddNew({ setShowAddNew, setList }) {
             <Panel header="Additional Info" key="1">
               <Form.Item name="image" >
                 <Upload listType="picture-card"
+                accept='image'
                   maxCount={1} >
                   Upload an Image
                 </Upload>
