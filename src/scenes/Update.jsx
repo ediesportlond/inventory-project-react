@@ -13,7 +13,7 @@ export default function Update() {
 
   const [values, setValues] = useState();
   const [updateValues, setUpdateValues] = useState();
-  const [percent, setPercent] = useState(values?.percentRemaining || 100);
+  const [percent, setPercent] = useState(100);
 
   const navigate = useNavigate();
 
@@ -204,8 +204,10 @@ export default function Update() {
             let year = nums[1];
             if (day.length < 2) day = '0' + day;
             setValues({ ...res.message, replaceBy: `${year}-${month}-${day}` })
+            setPercent(res.message.percentRemaining);
           } else {
             setValues(res.message)
+            setPercent(res.message.percentRemaining);
           }
         } else {
           console.error('Server did not respond. Please try again.')
