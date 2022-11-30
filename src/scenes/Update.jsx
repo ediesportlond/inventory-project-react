@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 import {
   Form, Radio, Space, Input, Progress,
@@ -14,6 +14,8 @@ export default function Update() {
   const [values, setValues] = useState();
   const [updateValues, setUpdateValues] = useState();
   const [percent, setPercent] = useState(values?.percentRemaining || 100);
+
+  const navigate = useNavigate();
 
   const convertFile = (file) => {
     if (file) {
@@ -32,7 +34,7 @@ export default function Update() {
           body: JSON.stringify({ ...updateValues, image: `data:${fileType};base64,${window.btoa(ev.target.result)}` })
         })
           .then((res) => {
-            alert('Item updated succesfully.')
+            navigate('/')
           })
           .catch(console.error)
       }
@@ -117,7 +119,7 @@ export default function Update() {
         },
         body: JSON.stringify(updateValues)
       })
-        .then(() => alert("Update succesful"))
+        .then(() => navigate('/'))
         .catch(console.error);
     };
   };
