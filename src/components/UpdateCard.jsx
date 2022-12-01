@@ -8,6 +8,7 @@ export default function UpdateCard({ item }) {
   const [inventory, setInventory] = useState(item.inventory);
   const [percent, setPercent] = useState(item.percentRemaining);
   const [date, setDate] = useState(item.replaceBy);
+  const [price, setPrice] = useState(!isNaN(item.price) && item.price.toFixed(2));
 
   const increaseInventory = () => {
 
@@ -133,6 +134,19 @@ export default function UpdateCard({ item }) {
 
 
   }
+
+  const handlePriceChange = ({target: {value}}) => {
+    setPrice(value);
+    fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      },
+      body: JSON.stringify({ price: Number(value) })
+    })
+  }
+
   return (
     <>
       <Card className='update-card' title={item.productName} 
@@ -140,6 +154,7 @@ export default function UpdateCard({ item }) {
       extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />} >
         <>
           <div className='update-card-body' >
+
             <div className='row' >
               <div className='column start'>
                 <p>Available:</p>
@@ -182,6 +197,21 @@ export default function UpdateCard({ item }) {
                 <Input type='date' defaultValue={item.replaceBy} onChange={handleDateChange} />
               </div>
             </div>
+            
+            <div className='row' >
+
+              <div className='column start'>
+                <p>Price:</p>
+              </div>
+              <div className='column'>
+                <p>{price && `$${price}`}</p>
+              </div>
+              <div className='column end'>
+                <Input type='number' min='0' step='.01' placeholder={price} onChange={handlePriceChange} />
+              </div>
+            </div>
+
+
           </div>
         </>
       </Card>

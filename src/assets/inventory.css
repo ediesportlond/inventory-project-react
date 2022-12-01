@@ -1,3 +1,6 @@
+.inventory-container{
+  padding-bottom: 60px;
+}
 .modal-btn{
   position: fixed;
   bottom: 1rem;

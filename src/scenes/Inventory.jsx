@@ -63,47 +63,49 @@ export default function Inventory() {
 
   return (
     <>
-      <Nav />
-      <div className="controls-container">
-        <div>
-          <SearchBar />
-          <Selector setList={setList} />
+      <div className="inventory-container">
+        <Nav />
+        <div className="controls-container">
+          <div>
+            <SearchBar />
+            <Selector setList={setList} />
+          </div>
         </div>
-      </div>
-      <List
-        grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
-        dataSource={list}
-        renderItem={item => (
-          <List.Item key={item._id}>
-            <Link to={`/update/${item._id}`} >
-              <Card title={item.productName} hoverable
-                extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />}>
-                <>
-                  <p>Available: {item.inventory}</p>
-                  <p>Percent Remaining: {item.percentRemaining}%</p>
-                  {item.replaceBy ? <p>Replace By: {item.replaceBy}</p> : null}
-                  {item.group ? <p>Group: {item.group}</p> : null}
-                  <div className='delete-container' onClick={(e) => {
-                    e.preventDefault();
-                    deleteItem(item._id, item.productName)
-                  }
-                  }><Button type='text'>Delete</Button></div>
-                </>
-              </Card>
-            </Link>
-          </List.Item>
-        )}
-      />
+        <List
+          grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+          dataSource={list}
+          renderItem={item => (
+            <List.Item key={item._id}>
+              <Link to={`/update/${item._id}`} >
+                <Card title={item.productName + (item.brand ? ' - ' + item.brand : '')} hoverable
+                  extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />}>
+                  <>
+                    <p>Available: {item.inventory}</p>
+                    <p>Percent Remaining: {item.percentRemaining}%</p>
+                    {item.replaceBy ? <p>Replace By: {item.replaceBy}</p> : null}
+                    {item.group ? <p>Group: {item.group}</p> : null}
+                    <div className='delete-container' onClick={(e) => {
+                      e.preventDefault();
+                      deleteItem(item._id, item.productName)
+                    }
+                    }><Button type='text'>Delete</Button></div>
+                  </>
+                </Card>
+              </Link>
+            </List.Item>
+          )}
+        />
 
-      {showAddNew && <AddNew setShowAddNew={setShowAddNew} setList={setList} />}
-      <Button
-        className='modal-btn'
-        onClick={() => setShowAddNew(true)}
-        size='large'
-        shape='circle'
-        type='primary'
-        icon={<PlusOutlined />}
-      />
+        {showAddNew && <AddNew setShowAddNew={setShowAddNew} setList={setList} />}
+        <Button
+          className='modal-btn'
+          onClick={() => setShowAddNew(true)}
+          size='large'
+          shape='circle'
+          type='primary'
+          icon={<PlusOutlined />}
+        />
+      </div>
     </>
   )
 }
