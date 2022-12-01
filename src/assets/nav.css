@@ -1,6 +1,16 @@
 nav{
+  position: fixed;
   display: flex;
+  top: 0;
+  width: 100%;
   padding: 1rem 0 1rem 0;
+  box-shadow: 0px 0px 12px black;
+  background-color: #fff;
+  z-index: 1;
+}
+
+nav.nav-back{
+  justify-content: center;
 }
 
 ul {
@@ -10,4 +20,9 @@ ul {
 a{
   text-decoration: none;
   margin: 0 1rem 0 1rem;
+}
+
+.fa-cart-plus:hover{
+  font-size: 1.75em !important;
+  text-shadow: 0px 0px 1px black;
 }

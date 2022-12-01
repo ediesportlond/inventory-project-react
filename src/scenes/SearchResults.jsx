@@ -7,7 +7,7 @@ import SearchBar from '../components/SearchBar';
 
 export default function ShoppingList() {
   const { token, setUser, setToken } = useContext(UserContext);
-  const {search} = useParams();
+  const { search } = useParams();
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -35,15 +35,18 @@ export default function ShoppingList() {
 
   return (
     <>
-      <Link to='/' >&larr; Go Back</Link>
+      <nav className='nav-back'>
+        <Link to='/' > <h2> &larr; Go Back </h2> </Link>
+      </nav>
       <SearchBar setList={setList} />
       <br />
+      <br />
       <List
-        grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3}}
+        grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
         dataSource={list}
         renderItem={item => (
           <List.Item key={item._id}>
-              <UpdateCard item={item}/>
+            <UpdateCard item={item} />
           </List.Item>
         )}
       />

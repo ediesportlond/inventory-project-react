@@ -36,10 +36,10 @@ export default function ShoppingList() {
 
   return (
     <>
-      <nav>
-        <Link to='/' >&larr; Go Back</Link>
+      <nav className='nav-back'>
+        <Link to='/'> <h2> &larr; Go Back </h2> </Link>
       </nav>
-      <p className='estimated-cost'> Estimated Cost ${cost} </p>
+      <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
       <List
         grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
         dataSource={list}

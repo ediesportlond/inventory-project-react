@@ -221,8 +221,8 @@ export default function Update() {
 
   return (
     <>
-      <nav>
-        <Link to='/' >&larr; Go Back</Link>
+      <nav className='nav-back'>
+        <Link to='/' > <h2> &larr; Go Back </h2> </Link>
       </nav>
       <div className='product-name-conatiner'>
         <h1>{values?.productName}</h1>
