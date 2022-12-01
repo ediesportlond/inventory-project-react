@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { List } from 'antd';
 import { UserContext } from '../App';
 import UpdateCard from '../components/UpdateCard';
+import '../assets/shoppingList.css';
 
 export default function ShoppingList() {
   const { token, setUser, setToken } = useContext(UserContext);
@@ -35,17 +36,17 @@ export default function ShoppingList() {
 
   return (
     <>
-      <Link to='/' >&larr; Go Back</Link>
-      <br />
-      <br />
-      <p> Estimated cost ${cost} </p>
-      <br />
+      <nav>
+        <Link to='/' >&larr; Go Back</Link>
+      </nav>
+      <p className='estimated-cost'> Estimated Cost ${cost} </p>
       <List
-        grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3}}
+        grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
         dataSource={list}
+        className='shopping-list-container'
         renderItem={item => (
           <List.Item key={item._id}>
-              <UpdateCard item={item}/>
+            <UpdateCard item={item} />
           </List.Item>
         )}
       />

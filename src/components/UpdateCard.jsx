@@ -194,7 +194,7 @@ export default function UpdateCard({ item }) {
                 <p>{date}</p>
               </div>
               <div className='column end'>
-                <Input type='date' defaultValue={item.replaceBy} onChange={handleDateChange} />
+                <Input className='update-card-input' type='date' defaultValue={item.replaceBy} onChange={handleDateChange} />
               </div>
             </div>
             
@@ -207,7 +207,7 @@ export default function UpdateCard({ item }) {
                 <p>{price && `$${price}`}</p>
               </div>
               <div className='column end'>
-                <Input type='number' min='0' step='.01' placeholder={price} onChange={handlePriceChange} />
+                <Input className='update-card-input' type='number' min='0' step='.01' placeholder={price} onChange={handlePriceChange} />
               </div>
             </div>
 

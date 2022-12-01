@@ -221,7 +221,9 @@ export default function Update() {
 
   return (
     <>
-      <Link to='/' >&larr; Go Back</Link>
+      <nav>
+        <Link to='/' >&larr; Go Back</Link>
+      </nav>
       <div className='product-name-conatiner'>
         <h1>{values?.productName}</h1>
       </div>

@@ -11,7 +11,7 @@
 
 .row > .column {
   display: flex;
-  width: 30%;
+  width: 33%;
 }
 
 .start {
@@ -31,6 +31,10 @@
 
 .ant-row > div {
   min-width: 325px;
+}
+
+.update-card-input{
+  max-width: 90.5px;
 }
 
 @media only screen and (min-width: 767px) {
