@@ -31,7 +31,7 @@ export default function ShoppingList() {
         setList(result.message)
       })
       .catch(console.error)
-  }, [token, setToken, setUser])
+  }, [token, setToken, setUser, search])
 
   return (
     <>

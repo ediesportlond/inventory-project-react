@@ -72,9 +72,9 @@ export default function UpdateCard({ item }) {
 
   const generateThreshold = (expiration, threshold) => {
     //option will be num days
-    const minute = 1000 * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
+    // const minute = 1000 * 60;
+    // const hour = minute * 60;
+    // const day = hour * 24;
 
     threshold = Date.parse(item.replaceBy + ' ') - Date.parse(threshold + ' ');
     expiration = Date.parse(expiration + ' '); //change NEW expiration to ms

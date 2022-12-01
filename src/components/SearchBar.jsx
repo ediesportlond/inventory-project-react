@@ -1,14 +1,12 @@
 import { useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 import { Input } from 'antd';
 const { Search } = Input;
 
-
 export default function SearchBar({ setList }) {
   const navigate = useNavigate();
   const { token, setUser, setToken } = useContext(UserContext);
-  const {search} = useParams();
   let onSearch;
   if (!setList) {
     onSearch = (value) => navigate(`/search/${value}`);

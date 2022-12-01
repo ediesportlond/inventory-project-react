@@ -4,6 +4,7 @@ import { UserContext } from '../App';
 import Nav from '../components/Nav';
 import AddNew from '../components/AddNew';
 import SearchBar from '../components/SearchBar';
+import Selector from '../components/Selector';
 import { Button, Avatar, Card, List } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import '../assets/inventory.css';
@@ -63,7 +64,12 @@ export default function Inventory() {
   return (
     <>
       <Nav />
-      <SearchBar />
+      <div className="controls-container">
+        <div>
+          <SearchBar />
+          <Selector setList={setList} />
+        </div>
+      </div>
       <List
         grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
         dataSource={list}
@@ -78,10 +84,10 @@ export default function Inventory() {
                   {item.replaceBy ? <p>Replace By: {item.replaceBy}</p> : null}
                   {item.group ? <p>Group: {item.group}</p> : null}
                   <div className='delete-container' onClick={(e) => {
-                    e.preventDefault(); 
+                    e.preventDefault();
                     deleteItem(item._id, item.productName)
                   }
-                }><Button type='text'>Delete</Button></div>
+                  }><Button type='text'>Delete</Button></div>
                 </>
               </Card>
             </Link>

@@ -8,3 +8,18 @@
   display: flex;
   justify-content: center;
 }
+
+.controls-container{
+  display: flex;
+  justify-content: center;
+}
+
+.controls-container > div{
+  width:600px;
+  max-width: 600px;
+}
+
+.controls-container > div > span{
+  margin: 1rem 0 1rem 0;
+}
+
