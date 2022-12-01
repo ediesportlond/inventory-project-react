@@ -224,6 +224,7 @@ export default function Update() {
       <nav className='nav-back'>
         <Link to='/' > <h2> &larr; Go Back </h2> </Link>
       </nav>
+      <div className='container'>
       <div className='product-name-conatiner'>
         <h1>{values?.productName}</h1>
       </div>
@@ -366,6 +367,7 @@ export default function Update() {
           : <p>⏱ Loading ... ⏱</p>
 
       }
+      </div>
     </>
   )
 }
