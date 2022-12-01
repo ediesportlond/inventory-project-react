@@ -26,7 +26,7 @@ export default function Update() {
       reader.onload = (ev) => {
         // convert it to base64
         fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${oid}`, {
-          method: "POST",
+          method: "PATCH",
           headers: {
             'Content-Type': 'application/json',
             'Authorization': token
@@ -112,7 +112,7 @@ export default function Update() {
       convertFile(val.image.file.originFileObj);
     } else {
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${oid}`, {
-        method: "POST",
+        method: "PATCH",
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token

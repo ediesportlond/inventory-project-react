@@ -12,7 +12,7 @@ export default function UpdateCard({ item }) {
   const increaseInventory = () => {
 
     fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': token
@@ -26,7 +26,7 @@ export default function UpdateCard({ item }) {
   const decreaseInventory = () => {
     if (inventory > 0) {
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token
@@ -43,7 +43,7 @@ export default function UpdateCard({ item }) {
     if (percent < 100) {
 
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token
@@ -58,7 +58,7 @@ export default function UpdateCard({ item }) {
   const decreasePercent = () => {
     if (percent > 0) {
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token
@@ -108,7 +108,7 @@ export default function UpdateCard({ item }) {
 
       const newDate = new Date(value + ' ').toDateString().replace(/^\w{3}\s/, '')
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token
@@ -121,7 +121,7 @@ export default function UpdateCard({ item }) {
 
       const newDate = new Date(value + ' ').toDateString().replace(/^\w{3}\s/, '')
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token
