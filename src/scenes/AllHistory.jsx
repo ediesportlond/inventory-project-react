@@ -33,7 +33,8 @@ export default function AllHistory() {
   }, [token, setToken, setUser])
 
   const copyLink = (id) => {
-    navigator.clipboard.writeText(`http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`)
+    // navigator.clipboard.writeText(`http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`)
+    alert(`Your shopping list link is: http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`)
   }
 
   return (
