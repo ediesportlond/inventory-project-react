@@ -20,7 +20,6 @@ export default function SingleHistory() {
       .then(res => {
         setCost(res.message.cost)
         setList(res.message.list)
-        console.log(res.message)
       })
       .catch(console.error);
   }, [])
@@ -45,7 +44,7 @@ export default function SingleHistory() {
                 cover={<img alt="product" src={item?.image || 'https://placekitten.com/300/300'} />}
               >
                 <Meta title={item.productName + (item.brand ? ' - ' + item.brand : '')} 
-                description={item.price} />
+                description={'$'+item.price} />
               </Card>
             </List.Item>
           )}

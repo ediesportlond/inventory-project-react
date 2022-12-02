@@ -42,6 +42,7 @@ function App() {
                 <Route path='search/:search' element={<SearchResults />} />
                 <Route path='history' element={<AllHistory />} />
                 <Route path='history/:oid' element={<SingleHistory />} />
+                <Route path='view/:oid' element={<SingleHistoryGuest />} />
               </>
           }
         </Routes>
