@@ -17,9 +17,8 @@ ul {
   display: flex;
   list-style: none;
 }
-a{
+a {
   text-decoration: none;
-  margin: 0 1rem 0 1rem;
 }
 
 .fa-cart-plus:hover{

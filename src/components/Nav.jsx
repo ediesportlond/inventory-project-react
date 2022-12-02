@@ -29,7 +29,7 @@ export default function Nav() {
       <Drawer title="Navigation" placement="right" onClose={onClose} open={open}>
         <ul>
           <li>
-            <li><Button type='text' onClick={()=> navigate('/history')}>Shopping List History </Button></li>
+            <li><Button type='text' onClick={() => navigate('/history')}>Shopping List History </Button></li>
             <Button type='text' onClick={() => {
               setUser();
               setToken();
