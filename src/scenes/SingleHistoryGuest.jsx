@@ -24,7 +24,7 @@ export default function SingleHistory() {
         setList(res.message.list)
       })
       .catch(console.error);
-  }, [])
+  }, [setCost, setList, oid])
 
   return (
     <>

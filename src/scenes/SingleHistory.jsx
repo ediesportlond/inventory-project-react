@@ -33,7 +33,7 @@ export default function SingleHistory() {
       })
       .catch(console.error);
 
-  }, [token, setToken, setUser])
+  }, [token, setToken, setUser, oid])
 
   return (
     <>
