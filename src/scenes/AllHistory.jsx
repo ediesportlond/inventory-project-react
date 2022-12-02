@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
 import { List, Button } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
-import '../assets/history.css';
 
 export default function AllHistory() {
   const { token, setUser, setToken } = useContext(UserContext);
