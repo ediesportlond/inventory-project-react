@@ -13,7 +13,29 @@ export default function ShoppingList() {
   const [refresh, setRefresh] = useState(false);
 
   const saveShoppingList = () => {
-    console.log(list);
+    const body = {
+      cost: cost,
+      list: list
+    }
+    fetch(`${process.env.REACT_APP_ENDPOINT}/history/list`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      },
+      body: JSON.stringify(body)
+    })
+      .then(res => {
+        if (res.status === 401) {
+          setUser()
+          setToken()
+          sessionStorage.removeItem('user')
+          sessionStorage.removeItem('token')
+        }
+        return res.json()
+      })
+      .then(() => alert('Your list is saved'))
+      .catch(console.error);
   }
   useEffect(() => {
     fetch(process.env.REACT_APP_ENDPOINT + '/shopping-list', {
@@ -52,7 +74,7 @@ export default function ShoppingList() {
           className='shopping-list-container'
           renderItem={item => (
             <List.Item key={item._id}>
-              <UpdateCard item={item} refresh={refresh} setRefresh={setRefresh}/>
+              <UpdateCard item={item} refresh={refresh} setRefresh={setRefresh} />
             </List.Item>
           )}
         />
@@ -61,6 +83,7 @@ export default function ShoppingList() {
           size='large'
           shape='circle'
           type='primary'
+          onClick={saveShoppingList}
           icon={<SaveOutlined />}
         />
       </div>

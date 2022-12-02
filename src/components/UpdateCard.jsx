@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { UserContext } from '../App';
 import { Card, Avatar, Button, Input } from 'antd';
 import '../assets/updateCard.css';
@@ -220,6 +220,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
         return res.json()
       })
       .then(() => setRefresh(!refresh))
+      .catch(console.error);
 
     // setPrice(value);
 
