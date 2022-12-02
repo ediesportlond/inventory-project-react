@@ -31,13 +31,13 @@ export default function SingleHistory() {
       <nav className='nav-back'>
         <h1>Shopping List</h1>
       </nav>
-      <div className="container guest">
+      <div className="container">
         <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
         <List
           grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
           dataSource={list}
           renderItem={item => (
-            <List.Item key={item._id}>
+            <List.Item key={item._id} className='guest'>
               <Card
                 hoverable
                 style={{

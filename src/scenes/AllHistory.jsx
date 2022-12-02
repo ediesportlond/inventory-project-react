@@ -2,7 +2,7 @@
 import { useEffect, useContext, useState } from "react";
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
-import { List, Button } from 'antd';
+import { List, Button, Alert } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 
 export default function AllHistory() {
@@ -33,6 +33,7 @@ export default function AllHistory() {
 
   const copyLink = (id) => {
     // navigator.clipboard.writeText(`http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`)
+    // <Alert message={`Your shopping list link is: http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`} type="success" />
     alert(`Your shopping list link is: http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`)
   }
 
