@@ -2,7 +2,8 @@
 import { useEffect, useContext, useState } from "react";
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
-import { List } from 'antd';
+import { List, Button } from 'antd';
+import { CopyOutlined } from '@ant-design/icons';
 import '../assets/history.css';
 
 export default function AllHistory() {
@@ -30,6 +31,11 @@ export default function AllHistory() {
       .catch(console.error);
 
   }, [token, setToken, setUser])
+
+  const copyLink = (id) => {
+    navigator.clipboard.writeText(`http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`)
+  }
+
   return (
     <div className='container'>
       <nav className='nav-back'>
@@ -41,6 +47,8 @@ export default function AllHistory() {
         dataSource={list}
         renderItem={(item) => (
           <List.Item key={item._id}>
+            <Button type='text'
+              onClick={(() => copyLink(item._id))}><CopyOutlined /></Button>
             <Link to={`/history/${item._id}`} >
               {item.createdDate.match(/^\d{4}-\d{2}-\d{2}/)} --- COST ${item.cost}
             </Link>

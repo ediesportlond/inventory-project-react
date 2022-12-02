@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {UserContext} from '../App';
 import { Card, List, Avatar } from 'antd';
-import { hasSelectionSupport } from '@testing-library/user-event/dist/utils';
 
 export default function SingleHistory() {
 

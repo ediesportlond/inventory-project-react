@@ -7,6 +7,7 @@ import Update from './scenes/Update';
 import SearchResults from './scenes/SearchResults';
 import AllHistory from './scenes/AllHistory';
 import SingleHistory from './scenes/SingleHistory';
+import SingleHistoryGuest from './scenes/SingleHistoryGuest';
 import Footer from './components/Footer';
 
 export const UserContext = createContext({});
@@ -29,7 +30,11 @@ function App() {
         <Routes>
           {
             !user
-              ? <Route path='*' element={<Login />} />
+              ? <>
+              <Route path='*' element={<Login />} />
+              <Route path='view/:oid' element={<SingleHistoryGuest />} />
+              </>
+
               : <>
                 <Route index element={<Inventory />} />
                 <Route path='shopping' element={<ShoppingList />} />
