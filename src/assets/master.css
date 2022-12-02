@@ -9,3 +9,9 @@
 .container{
   padding-top: 80px;
 }
+
+footer{
+  text-align: center;
+  padding: 1rem 0;
+}
+/* background-image: linear-gradient(to bottom right, #a2a27d, beige) */

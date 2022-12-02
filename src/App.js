@@ -5,6 +5,7 @@ import Inventory from './scenes/Inventory';
 import ShoppingList from './scenes/ShoppingList';
 import Update from './scenes/Update';
 import SearchResults from './scenes/SearchResults';
+import Footer from './components/Footer'
 
 export const UserContext = createContext({});
 
@@ -36,6 +37,7 @@ function App() {
           }
         </Routes>
       </UserContext.Provider>
+      <Footer />
     </div >
   );
 }

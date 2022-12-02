@@ -6,7 +6,6 @@ import '../assets/nav.css';
 
 export default function Nav() {
   const { user, setUser, setToken } = useContext(UserContext);
-  console.log(user.photoURL)
 
   return (
     <>
