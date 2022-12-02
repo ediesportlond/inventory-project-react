@@ -9,6 +9,7 @@ export default function ShoppingList() {
   const { token, setUser, setToken } = useContext(UserContext);
   const { search } = useParams();
   const [list, setList] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_ENDPOINT}/search/${search}`, {
@@ -31,7 +32,7 @@ export default function ShoppingList() {
         setList(result.message)
       })
       .catch(console.error)
-  }, [token, setToken, setUser, search])
+  }, [token, setToken, setUser, search, refresh])
 
   return (
     <>
@@ -47,7 +48,7 @@ export default function ShoppingList() {
         dataSource={list}
         renderItem={item => (
           <List.Item key={item._id}>
-            <UpdateCard item={item} />
+            <UpdateCard item={item} refresh={refresh} setRefresh={setRefresh}/>
           </List.Item>
         )}
       />

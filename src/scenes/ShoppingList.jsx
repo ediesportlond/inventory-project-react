@@ -1,15 +1,20 @@
 import { useEffect, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { List } from 'antd';
+import { List, Button } from 'antd';
 import { UserContext } from '../App';
 import UpdateCard from '../components/UpdateCard';
+import { SaveOutlined } from '@ant-design/icons';
 import '../assets/shoppingList.css';
 
 export default function ShoppingList() {
   const { token, setUser, setToken } = useContext(UserContext);
   const [list, setList] = useState([]);
   const [cost, setCost] = useState('');
+  const [refresh, setRefresh] = useState(false);
 
+  const saveShoppingList = () => {
+    console.log(list);
+  }
   useEffect(() => {
     fetch(process.env.REACT_APP_ENDPOINT + '/shopping-list', {
       method: 'GET',
@@ -32,7 +37,7 @@ export default function ShoppingList() {
         setList(result.message)
       })
       .catch(console.error)
-  }, [token, setToken, setUser])
+  }, [token, setToken, setUser, refresh])
 
   return (
     <>
@@ -40,17 +45,24 @@ export default function ShoppingList() {
         <Link to='/'> <h2> &larr; Go Back </h2> </Link>
       </nav>
       <div className='container'>
-      <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
-      <List
-        grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
-        dataSource={list}
-        className='shopping-list-container'
-        renderItem={item => (
-          <List.Item key={item._id}>
-            <UpdateCard item={item} />
-          </List.Item>
-        )}
-      />
+        <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
+        <List
+          grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+          dataSource={list}
+          className='shopping-list-container'
+          renderItem={item => (
+            <List.Item key={item._id}>
+              <UpdateCard item={item} refresh={refresh} setRefresh={setRefresh}/>
+            </List.Item>
+          )}
+        />
+        <Button
+          className='modal-btn'
+          size='large'
+          shape='circle'
+          type='primary'
+          icon={<SaveOutlined />}
+        />
       </div>
     </>
   )

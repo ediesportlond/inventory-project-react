@@ -3,12 +3,12 @@ import { UserContext } from '../App';
 import { Card, Avatar, Button, Input } from 'antd';
 import '../assets/updateCard.css';
 
-export default function UpdateCard({ item }) {
-  const { token } = useContext(UserContext);
-  const [inventory, setInventory] = useState(item.inventory);
-  const [percent, setPercent] = useState(item.percentRemaining);
-  const [date, setDate] = useState(item.replaceBy);
-  const [price, setPrice] = useState(!isNaN(item.price) && item.price.toFixed(2));
+export default function UpdateCard({ item, refresh, setRefresh }) {
+  const { token, setUser, setToken } = useContext(UserContext);
+  // const [inventory, setInventory] = useState(item.inventory);
+  // const [percent, setPercent] = useState(item.percentRemaining);
+  // const [date, setDate] = useState(item.replaceBy);
+  // const [price, setPrice] = useState(!isNaN(item.price) && item.price.toFixed(2));
 
   const increaseInventory = () => {
 
@@ -18,30 +18,50 @@ export default function UpdateCard({ item }) {
         'Content-Type': 'application/json',
         'Authorization': token
       },
-      body: JSON.stringify({ inventory: inventory + 1 })
+      body: JSON.stringify({ inventory: item.inventory + 1 })
     })
+      .then(res => {
+        if (res.status === 401) {
+          setUser()
+          setToken()
+          sessionStorage.removeItem('user')
+          sessionStorage.removeItem('token')
+        }
+        return res.json()
+      })
+      .then(() => setRefresh(!refresh))
 
-    setInventory(inventory + 1);
+    // setInventory(inventory + 1);
   }
 
   const decreaseInventory = () => {
-    if (inventory > 0) {
+    if (item.inventory > 0) {
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token
         },
-        body: JSON.stringify({ inventory: inventory - 1 })
+        body: JSON.stringify({ inventory: item.inventory - 1 })
       })
+        .then(res => {
+          if (res.status === 401) {
+            setUser()
+            setToken()
+            sessionStorage.removeItem('user')
+            sessionStorage.removeItem('token')
+          }
+          return res.json()
+        })
+        .then(() => setRefresh(!refresh))
 
-      setInventory(inventory - 1);
+      // setInventory(inventory - 1);
     }
   }
 
   const increasePercent = () => {
 
-    if (percent < 100) {
+    if (item.percentRemaining < 100) {
 
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
         method: 'PATCH',
@@ -49,36 +69,62 @@ export default function UpdateCard({ item }) {
           'Content-Type': 'application/json',
           'Authorization': token
         },
-        body: JSON.stringify({ percentRemaining: percent + 5 })
+        body: JSON.stringify({ percentRemaining: item.percentRemaining + 5 })
       })
+        .then(res => {
+          if (res.status === 401) {
+            setUser()
+            setToken()
+            sessionStorage.removeItem('user')
+            sessionStorage.removeItem('token')
+          }
+          return res.json()
+        })
+        .then(() => setRefresh(!refresh))
 
-      setPercent(percent + 5);
+      // setPercent(percent + 5);
     }
   }
 
   const decreasePercent = () => {
-    if (percent > 0) {
+    if (item.percentRemaining > 0) {
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token
         },
-        body: JSON.stringify({ percentRemaining: percent - 5 })
+        body: JSON.stringify({ percentRemaining: item.percentRemaining - 5 })
       })
+        .then(res => {
+          if (res.status === 401) {
+            setUser()
+            setToken()
+            sessionStorage.removeItem('user')
+            sessionStorage.removeItem('token')
+          }
+          return res.json()
+        })
+        .then(() => setRefresh(!refresh))
 
-      setPercent(percent - 5);
+      // setPercent(percent - 5);
     }
   }
 
   const generateThreshold = (expiration, threshold) => {
-    //option will be num days
-    // const minute = 1000 * 60;
-    // const hour = minute * 60;
-    // const day = hour * 24;
+    // option will be num days
+    const minute = 1000 * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
 
-    threshold = Date.parse(item.replaceBy + ' ') - Date.parse(threshold + ' ');
-    expiration = Date.parse(expiration + ' '); //change NEW expiration to ms
+    if (isNaN(threshold)) {
+      threshold = Date.parse(item?.replaceBy + ' ') - Date.parse(threshold + ' ')
+
+    } else {
+      threshold *= day;  //change threshold days to ms
+    }
+
+    expiration = Date.parse(expiration + ' '); //change expiration to ms
     threshold = expiration - threshold; //subtract days in ms for threshold date
 
     let d = new Date(threshold);
@@ -116,7 +162,17 @@ export default function UpdateCard({ item }) {
         },
         body: JSON.stringify({ replaceBy: newDate, threshold: newThreshold })
       })
-      setDate(newDate);
+        .then(res => {
+          if (res.status === 401) {
+            setUser()
+            setToken()
+            sessionStorage.removeItem('user')
+            sessionStorage.removeItem('token')
+          }
+          return res.json()
+        })
+        .then(() => setRefresh(!refresh))
+      // setDate(newDate);
 
     } else {
 
@@ -129,14 +185,23 @@ export default function UpdateCard({ item }) {
         },
         body: JSON.stringify({ replaceBy: newDate })
       })
-      setDate(newDate);
+        .then(res => {
+          if (res.status === 401) {
+            setUser()
+            setToken()
+            sessionStorage.removeItem('user')
+            sessionStorage.removeItem('token')
+          }
+          return res.json()
+        })
+        .then(() => setRefresh(!refresh))
+      // setDate(newDate);
     }
 
 
   }
 
-  const handlePriceChange = ({target: {value}}) => {
-    setPrice(value);
+  const handlePriceChange = ({ target: { value } }) => {
     fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
       method: 'PATCH',
       headers: {
@@ -145,13 +210,26 @@ export default function UpdateCard({ item }) {
       },
       body: JSON.stringify({ price: Number(value) })
     })
+      .then(res => {
+        if (res.status === 401) {
+          setUser()
+          setToken()
+          sessionStorage.removeItem('user')
+          sessionStorage.removeItem('token')
+        }
+        return res.json()
+      })
+      .then(() => setRefresh(!refresh))
+
+    // setPrice(value);
+
   }
 
   return (
     <>
-      <Card className='update-card' title={item.productName} 
-      hoverable
-      extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />} >
+      <Card className='update-card' title={item.productName}
+        hoverable
+        extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />} >
         <>
           <div className='update-card-body' >
 
@@ -160,7 +238,7 @@ export default function UpdateCard({ item }) {
                 <p>Available:</p>
               </div>
               <div className='column'>
-                <p>{inventory}</p>
+                <p>{item.inventory}</p>
               </div>
               <div className='column end' style={{ width: '30%', display: 'flex', justifyContent: 'flex-end' }}>
                 <div className='button-container'>
@@ -175,7 +253,7 @@ export default function UpdateCard({ item }) {
                 <p>Percent Remaining:</p>
               </div>
               <div className='column'>
-                <p>{percent}%</p>
+                <p>{item.percentRemaining}%</p>
               </div>
               <div className='column end'>
                 <div className='button-container'>
@@ -191,23 +269,23 @@ export default function UpdateCard({ item }) {
                 <p>Replace By:</p>
               </div>
               <div className='column'>
-                <p>{date}</p>
+                <p>{item.replaceBy}</p>
               </div>
               <div className='column end'>
-                <Input className='update-card-input' type='date' defaultValue={item.replaceBy} onChange={handleDateChange} />
+                <Input className='update-card-input' type='date' defaultValue={item?.replaceBy && generateThreshold(item.replaceBy, 0)} onChange={handleDateChange} />
               </div>
             </div>
-            
+
             <div className='row' >
 
               <div className='column start'>
                 <p>Price:</p>
               </div>
               <div className='column'>
-                <p>{price && `$${price}`}</p>
+                <p>{!isNaN(item?.price) && `$${Number(item?.price).toFixed(2)}`}</p>
               </div>
               <div className='column end'>
-                <Input className='update-card-input' type='number' min='0' step='.01' placeholder={price} onChange={handlePriceChange} />
+                <Input className='update-card-input' type='number' min='0' step='.01' placeholder={!isNaN(item?.price) && `${Number(item?.price).toFixed(2)}`} onChange={handlePriceChange} />
               </div>
             </div>
 
