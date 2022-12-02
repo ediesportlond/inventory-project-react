@@ -5,7 +5,8 @@ import Inventory from './scenes/Inventory';
 import ShoppingList from './scenes/ShoppingList';
 import Update from './scenes/Update';
 import SearchResults from './scenes/SearchResults';
-import Footer from './components/Footer'
+import AllHistory from './scenes/AllHistory';
+import Footer from './components/Footer';
 
 export const UserContext = createContext({});
 
@@ -33,6 +34,7 @@ function App() {
                 <Route path='shopping' element={<ShoppingList />} />
                 <Route path='update/:oid' element={<Update />} />
                 <Route path='search/:search' element={<SearchResults />} />
+                <Route path='history' element={<AllHistory />} />
               </>
           }
         </Routes>
