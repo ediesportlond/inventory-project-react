@@ -40,8 +40,8 @@ export default function AllHistory() {
         bordered
         dataSource={list}
         renderItem={(item) => (
-          <List.Item>
-            <Link to='/'>
+          <List.Item key={item._id}>
+            <Link to={`/history/${item._id}`} >
               {item.createdDate.match(/^\d{4}-\d{2}-\d{2}/)} --- COST ${item.cost}
             </Link>
           </List.Item>

@@ -84,11 +84,13 @@ export default function Inventory() {
                     <p>Percent Remaining: {item.percentRemaining}%</p>
                     {item.replaceBy ? <p>Replace By: {item.replaceBy}</p> : null}
                     {item.group ? <p>Group: {item.group}</p> : null}
-                    <div className='delete-container' onClick={(e) => {
-                      e.preventDefault();
-                      deleteItem(item._id, item.productName)
-                    }
-                    }><Button type='text'>Delete</Button></div>
+                    <div className='delete-container'>
+                      <Button type='text' onClick={(e) => {
+                        e.preventDefault();
+                        deleteItem(item._id, item.productName)
+                      }}>
+                        Delete</Button>
+                    </div>
                   </>
                 </Card>
               </Link>

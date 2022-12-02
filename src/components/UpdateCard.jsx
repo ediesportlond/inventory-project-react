@@ -228,7 +228,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
 
   return (
     <>
-      <Card className='update-card' title={item.productName}
+      <Card className='update-card' title={item.productName + (item.brand ? ' - ' + item.brand : '')}
         hoverable
         extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />} >
         <>

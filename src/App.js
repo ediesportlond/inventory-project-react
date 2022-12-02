@@ -6,6 +6,7 @@ import ShoppingList from './scenes/ShoppingList';
 import Update from './scenes/Update';
 import SearchResults from './scenes/SearchResults';
 import AllHistory from './scenes/AllHistory';
+import SingleHistory from './scenes/SingleHistory';
 import Footer from './components/Footer';
 
 export const UserContext = createContext({});
@@ -35,6 +36,7 @@ function App() {
                 <Route path='update/:oid' element={<Update />} />
                 <Route path='search/:search' element={<SearchResults />} />
                 <Route path='history' element={<AllHistory />} />
+                <Route path='history/:oid' element={<SingleHistory />} />
               </>
           }
         </Routes>
