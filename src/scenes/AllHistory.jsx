@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
 import { List, Button, Alert } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
+import '../assets/history.css';
 
 export default function AllHistory() {
   const { token, setUser, setToken } = useContext(UserContext);
@@ -45,6 +46,7 @@ export default function AllHistory() {
       <List
         header={<h3 style={{ textAlign: 'center' }}>Shopping History</h3>}
         bordered
+        className='history-list'
         dataSource={list}
         renderItem={(item) => (
           <List.Item key={item._id}>

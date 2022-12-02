@@ -1,0 +1,12 @@
+.history-list{
+  margin: 1rem;
+}
+
+.history-list > .ant-spin-nested-loading > .ant-spin-container > .ant-list-items{
+  display: flex;
+  flex-direction: column !important;
+}
+
+.history-list .ant-list-item{
+  justify-content: center;
+}

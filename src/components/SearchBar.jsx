@@ -43,6 +43,7 @@ export default function SearchBar({ setList }) {
         allowClear
         enterButton="Search"
         size="large"
+        style={{padding: '0 1.25rem'}}
         onSearch={onSearch}
       />
     </>
