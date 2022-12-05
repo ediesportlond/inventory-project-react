@@ -1,10 +1,11 @@
 import { useState, useContext, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 import {
   Form, Radio, Space, Input, Progress,
   Button, Collapse, Upload
 } from 'antd';
+import Nav from '../components/Nav';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import '../assets/update.css';
 
@@ -221,9 +222,7 @@ export default function Update() {
 
   return (
     <>
-      <nav className='nav-back'>
-        <Link to='/' style={{color:'black'}}> <h2> &larr; Go Back </h2> </Link>
-      </nav>
+      <Nav />
       <div className='container white-bg'>
       <div className='product-name-conatiner'>
         <h1>{values?.productName}</h1>

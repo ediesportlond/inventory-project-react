@@ -28,14 +28,15 @@ export default function Nav() {
       </nav>
       <Drawer title="Navigation" placement="right" onClose={onClose} open={open}>
         <ul>
-          <li>
-            <li><Button type='text' onClick={() => navigate('/history')}>Shopping List History </Button></li>
-            <Button type='text' onClick={() => {
-              setUser();
-              setToken();
-              sessionStorage.removeItem("user");
-              sessionStorage.removeItem("token");
-            }} style={{ cursor: 'pointer' }}>Log out</Button>
+          <li><Button type='text' onClick={() => navigate('/')}>All Inventory</Button></li>
+          <li><Button type='text' onClick={() => navigate('/shopping')}>Generate Shopping List </Button></li>
+          <li><Button type='text' onClick={() => navigate('/history')}>Shopping List History </Button></li>
+          <li><Button type='text' onClick={() => {
+            setUser();
+            setToken();
+            sessionStorage.removeItem("user");
+            sessionStorage.removeItem("token");
+          }} style={{ cursor: 'pointer' }}>Log out</Button>
           </li>
         </ul>
       </Drawer>

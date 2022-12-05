@@ -1,7 +1,7 @@
 import { useEffect, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { List, Button } from 'antd';
 import { UserContext } from '../App';
+import Nav from '../components/Nav';
 import UpdateCard from '../components/UpdateCard';
 import { SaveOutlined } from '@ant-design/icons';
 import '../assets/shoppingList.css';
@@ -63,9 +63,7 @@ export default function ShoppingList() {
 
   return (
     <>
-      <nav className='nav-back'>
-        <Link to='/' style={{color:'black'}}> <h2> &larr; Go Back </h2> </Link>
-      </nav>
+      <Nav />
       <div className='container'>
         <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
         <List

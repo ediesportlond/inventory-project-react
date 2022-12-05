@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import {UserContext} from '../App';
+import Nav from '../components/Nav';
 import { Card, List, Avatar } from 'antd';
 
 export default function SingleHistory() {
@@ -37,9 +38,7 @@ export default function SingleHistory() {
 
   return (
     <>
-      <nav className='nav-back'>
-        <Link to='/' style={{color:'black'}}> <h2> &larr; Go Back </h2> </Link>
-      </nav>
+      <Nav />
       <div className="container">
       <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
         <List

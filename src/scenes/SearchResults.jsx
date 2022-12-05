@@ -2,6 +2,7 @@ import { useEffect, useContext, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { List } from 'antd';
 import { UserContext } from '../App';
+import Nav from '../components/Nav';
 import UpdateCard from '../components/UpdateCard';
 import SearchBar from '../components/SearchBar';
 
@@ -36,9 +37,7 @@ export default function ShoppingList() {
 
   return (
     <>
-      <nav className='nav-back' >
-        <Link to='/' style={{color: 'black'}}> <h2> &larr; Go Back </h2> </Link>
-      </nav>
+      <Nav />
       <div className='container'>
       <SearchBar setList={setList} />
       <br />

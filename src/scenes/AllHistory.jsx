@@ -2,6 +2,7 @@
 import { useEffect, useContext, useState } from "react";
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
+import Nav from '../components/Nav';
 import { List, Button, Alert } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import '../assets/history.css';
@@ -40,9 +41,7 @@ export default function AllHistory() {
 
   return (
     <div className='container'>
-      <nav className='nav-back'>
-        <Link to='/'style={{color:'black'}}> <h2> &larr; Go Back </h2> </Link>
-      </nav>
+      <Nav />
       <List
         header={<h3 style={{ textAlign: 'center' }}>Shopping History</h3>}
         bordered
