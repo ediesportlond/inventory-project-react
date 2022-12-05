@@ -40,7 +40,7 @@ export default function AllHistory() {
   }, [token, setToken, setUser])
 
   const copyLink = (id) => {
-    navigator.clipboard.writeText(`dtpyemhoit4nr.cloudfront.net/index.html/view/${id}`);
+    // navigator.clipboard.writeText(`dtpyemhoit4nr.cloudfront.net/index.html/view/${id}`);
     setVisible(true);
     setMessage(`Your link to share this list is: \n dtpyemhoit4nr.cloudfront.net/index.html/view/${id}`);
   }
