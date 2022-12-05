@@ -46,6 +46,7 @@ export default function ShoppingList() {
       <List
         grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
         dataSource={list}
+        className='shopping-list-container'
         renderItem={item => (
           <List.Item key={item._id}>
             <UpdateCard item={item} refresh={refresh} setRefresh={setRefresh}/>

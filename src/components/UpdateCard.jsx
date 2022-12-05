@@ -251,7 +251,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
 
             <div className='row' >
               <div className='column start'>
-                <p>Percent Remaining:</p>
+                <p>Remaining:</p>
               </div>
               <div className='column'>
                 <p>{item.percentRemaining}%</p>

@@ -78,12 +78,13 @@ export default function Inventory() {
           renderItem={item => (
             <List.Item key={item._id}>
               <Link to={`/update/${item._id}`} >
-                <Card title={item.productName + (item.brand ? ' - ' + item.brand : '')} hoverable
-                  extra={<Avatar src={item.image || defaultImg} />}>
+                <Card hoverable
+                  cover={<img src={item.image || defaultImg} style={{maxHeight: '220px', objectFit: 'contain'}}></img>} >
                   <>
+                    <h2>{item.productName + (item.brand ? ' - ' + item.brand : '')}</h2>
                     <p>In Stock: {item.inventory}</p>
                     {item.replaceBy ? <p>Replace By: {item.replaceBy}</p> : null}
-                    {item.group ? <p>Group: {item.group}</p> : null}
+                    {item.group ? <p>Group: <Link to={`/search/${item.group}`} >{item.group}</Link></p> : null}
                     <Progress percent={item.percentRemaining} />
                     <div className='delete-container'>
                       <Button type='text' onClick={(e) => {
