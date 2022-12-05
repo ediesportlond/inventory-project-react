@@ -9,7 +9,13 @@ import '../assets/history.css';
 
 export default function AllHistory() {
   const { token, setUser, setToken } = useContext(UserContext);
-  const [list, setList] = useState([])
+  const [list, setList] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState();
+
+  const handleClose = () => {
+    setVisible(false);
+  };
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_ENDPOINT}/history/list`, {
@@ -34,14 +40,17 @@ export default function AllHistory() {
   }, [token, setToken, setUser])
 
   const copyLink = (id) => {
-    // navigator.clipboard.writeText(`http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`)
-    // <Alert message={`Your shopping list link is: http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`} type="success" />
-    alert(`Your shopping list link is: http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`)
+    navigator.clipboard.writeText(`dtpyemhoit4nr.cloudfront.net/index.html/view/${id}`);
+    setVisible(true);
+    setMessage(`Your link to share this list is: \n dtpyemhoit4nr.cloudfront.net/index.html/view/${id}`);
   }
 
   return (
     <div className='container'>
       <Nav />
+      {visible && (
+        <Alert message={message} type="success" closable afterClose={handleClose} />
+      )}
       <List
         header={<h3 style={{ textAlign: 'center' }}>Shopping History</h3>}
         bordered

@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { List } from 'antd';
 import { UserContext } from '../App';
 import Nav from '../components/Nav';

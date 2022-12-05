@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from 'react';
-import { List, Button } from 'antd';
+import { List, Button, Alert } from 'antd';
 import { UserContext } from '../App';
 import Nav from '../components/Nav';
 import UpdateCard from '../components/UpdateCard';
@@ -11,6 +11,12 @@ export default function ShoppingList() {
   const [list, setList] = useState([]);
   const [cost, setCost] = useState('');
   const [refresh, setRefresh] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState();
+
+  const handleClose = () => {
+    setVisible(false);
+  };
 
   const saveShoppingList = () => {
     const body = {
@@ -34,7 +40,10 @@ export default function ShoppingList() {
         }
         return res.json()
       })
-      .then(() => alert('Your list is saved'))
+      .then(() => {
+        setMessage('Your list is saved');
+        setVisible(true);
+      })
       .catch(console.error);
   }
   useEffect(() => {
@@ -65,6 +74,9 @@ export default function ShoppingList() {
     <>
       <Nav />
       <div className='container'>
+        {visible && (
+          <Alert message={message} type="success" closable afterClose={handleClose} />
+        )}
         <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
         <List
           grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
