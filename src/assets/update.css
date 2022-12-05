@@ -1,12 +1,14 @@
 .product-name-conatiner{
   display: flex;
   justify-content: center;
+  margin-bottom: 1rem;
 }
 
 img.product-image{
   display: flex;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 1rem;
   width: 350px;
   max-width: 350px;
   min-width: 350px;
@@ -19,4 +21,8 @@ img.product-image{
   padding: 0 2rem;
   margin-left: auto;
   margin-right: auto;
+}
+
+.white-bg {
+  background-color: #fff;
 }

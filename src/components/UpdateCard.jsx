@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
 import { Card, Avatar, Button, Input } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
@@ -224,6 +224,31 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
 
   }
 
+  const deleteItem = (id, productName) => {
+    const confirmation = window.confirm(`Are you sure you want to delete ${productName}`);
+
+    if (!confirmation) return;
+
+    fetch(`${process.env.REACT_APP_ENDPOINT}/delete/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      }
+    })
+      .then(res => {
+        if (res.status === 401) {
+          setUser()
+          setToken()
+          sessionStorage.removeItem('user')
+          sessionStorage.removeItem('token')
+        }
+        return res.json()
+      })
+      .then(() => setRefresh(!refresh))
+      .catch(console.error);
+  }
+
   return (
     <>
       <Card className='update-card' title={<Link to={`/update/${item._id}`}><EditOutlined /> {item.productName + (item.brand ? ' - ' + item.brand : '')}</Link>}
@@ -288,6 +313,13 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
               </div>
             </div>
 
+            <div className='delete-container'>
+              <Button type='text' onClick={(e) => {
+                e.preventDefault();
+                deleteItem(item._id, item.productName)
+              }}>
+                Delete</Button>
+            </div>
 
           </div>
         </>

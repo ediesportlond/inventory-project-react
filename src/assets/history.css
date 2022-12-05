@@ -1,5 +1,6 @@
 .history-list{
   margin: 1rem;
+  background-color: #fff;
 }
 
 .history-list > .ant-spin-nested-loading > .ant-spin-container > .ant-list-items{

@@ -224,7 +224,7 @@ export default function Update() {
       <nav className='nav-back'>
         <Link to='/' style={{color:'black'}}> <h2> &larr; Go Back </h2> </Link>
       </nav>
-      <div className='container'>
+      <div className='container white-bg'>
       <div className='product-name-conatiner'>
         <h1>{values?.productName}</h1>
       </div>

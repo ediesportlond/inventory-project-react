@@ -42,12 +42,12 @@ export default function SingleHistory() {
               <Card
                 hoverable
                 style={{
-                  width: 240,
+                  width: 240
                 }}
-                cover={<img alt="product" src={item?.image || defaultImg} />}
+                cover={<img alt="product" src={item?.image || defaultImg} height='160' style={{objectFit: 'contain'}}/>}
               >
                 <Meta title={item.productName + (item.brand ? ' - ' + item.brand : '')} 
-                description={'$'+item.price} />
+                description={!isNaN(item?.price) && `$${Number(item?.price).toFixed(2)}`} />
               </Card>
             </List.Item>
           )}
