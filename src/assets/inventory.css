@@ -1,11 +1,11 @@
 .inventory-container{
   padding-top: 80px;
-  /* padding-bottom: 60px; */
 }
+
 .modal-btn{
   position: fixed;
   bottom: 1rem;
-  left: 45%;
+  right: 1rem;
 }
 
 .delete-container{

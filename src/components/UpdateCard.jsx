@@ -1,14 +1,12 @@
 import { useContext } from 'react';
+import {Link} from 'react-router-dom';
 import { UserContext } from '../App';
 import { Card, Avatar, Button, Input } from 'antd';
+import { EditOutlined } from '@ant-design/icons';
 import '../assets/updateCard.css';
 
 export default function UpdateCard({ item, refresh, setRefresh }) {
   const { token, setUser, setToken } = useContext(UserContext);
-  // const [inventory, setInventory] = useState(item.inventory);
-  // const [percent, setPercent] = useState(item.percentRemaining);
-  // const [date, setDate] = useState(item.replaceBy);
-  // const [price, setPrice] = useState(!isNaN(item.price) && item.price.toFixed(2));
 
   const increaseInventory = () => {
 
@@ -69,7 +67,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
           'Content-Type': 'application/json',
           'Authorization': token
         },
-        body: JSON.stringify({ percentRemaining: item.percentRemaining + 5 })
+        body: JSON.stringify({ percentRemaining: 100 })
       })
         .then(res => {
           if (res.status === 401) {
@@ -228,7 +226,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
 
   return (
     <>
-      <Card className='update-card' title={item.productName + (item.brand ? ' - ' + item.brand : '')}
+      <Card className='update-card' title={<Link to={`/update/${item._id}`}><EditOutlined /> {item.productName + (item.brand ? ' - ' + item.brand : '')}</Link>}
         hoverable
         extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />} >
         <>
