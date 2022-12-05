@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 import Nav from '../components/Nav';
 import AddNew from '../components/AddNew';
@@ -15,6 +15,7 @@ export default function Inventory() {
   const [list, setList] = useState([]);
   const [showAddNew, setShowAddNew] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(process.env.REACT_APP_ENDPOINT + '/inventory', {
@@ -84,7 +85,12 @@ export default function Inventory() {
                     <h2>{item.productName + (item.brand ? ' - ' + item.brand : '')}</h2>
                     <p>In Stock: {item.inventory}</p>
                     {item.replaceBy ? <p>Replace By: {item.replaceBy}</p> : null}
-                    {item.group ? <p>Group: <Link to={`/search/${item.group}`} >{item.group}</Link></p> : null}
+                    {item.group ? <p>Group: 
+                      <Button type='text' onClick={(e)=> {
+                        e.preventDefault()
+                        navigate(`/search/${item.group}`)
+                    }}><b>{item.group}</b></Button>
+                      </p> : null}
                     <Progress percent={item.percentRemaining} />
                     <div className='delete-container'>
                       <Button type='text' onClick={(e) => {
