@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from 'react';
-import { List, Button, Alert } from 'antd';
+import { List, Button, Alert, Skeleton } from 'antd';
 import { UserContext } from '../App';
 import Nav from '../components/Nav';
 import UpdateCard from '../components/UpdateCard';
@@ -77,17 +77,31 @@ export default function ShoppingList() {
         {visible && (
           <Alert message={message} type="success" closable afterClose={handleClose} />
         )}
-        <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
-        <List
-          grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
-          dataSource={list}
-          className='shopping-list-container'
-          renderItem={item => (
-            <List.Item key={item._id}>
-              <UpdateCard item={item} refresh={refresh} setRefresh={setRefresh} />
-            </List.Item>
-          )}
-        />
+        {
+          !list
+            ? <>
+              <div style={{ width: '60%', marginRight: 'auto', marginLeft: 'auto' }}>
+                <Skeleton.Image active /><br /><br />
+                <Skeleton active /><br />
+                <Skeleton.Image active /><br /><br />
+                <Skeleton active /><br />
+                <Skeleton.Image active /><br /><br />
+                <Skeleton active />
+              </div>
+            </>
+            : <>
+              <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
+              <List
+                grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+                dataSource={list}
+                className='shopping-list-container'
+                renderItem={item => (
+                  <List.Item key={item._id}>
+                    <UpdateCard item={item} refresh={refresh} setRefresh={setRefresh} />
+                  </List.Item>
+                )} />
+            </>
+        }
         <Button
           className='modal-btn'
           size='large'

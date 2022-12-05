@@ -3,13 +3,13 @@ import { useEffect, useContext, useState } from "react";
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
 import Nav from '../components/Nav';
-import { List, Button, Alert } from 'antd';
+import { List, Button, Alert, Skeleton } from 'antd';
 import { CopyOutlined } from '@ant-design/icons';
 import '../assets/history.css';
 
 export default function AllHistory() {
   const { token, setUser, setToken } = useContext(UserContext);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState();
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState();
 
@@ -51,21 +51,31 @@ export default function AllHistory() {
       {visible && (
         <Alert message={message} type="success" closable afterClose={handleClose} />
       )}
-      <List
-        header={<h3 style={{ textAlign: 'center' }}>Shopping History</h3>}
-        bordered
-        className='history-list'
-        dataSource={list}
-        renderItem={(item) => (
-          <List.Item key={item._id}>
-            <Button type='text'
-              onClick={(() => copyLink(item._id))}><CopyOutlined /></Button>
-            <Link to={`/history/${item._id}`} >
-              {item.createdDate.match(/^\d{4}-\d{2}-\d{2}/)} --- COST ${item.cost}
-            </Link>
-          </List.Item>
-        )}
-      />
+      {
+        !list
+          ? <>
+            <div style={{ width: '60%', marginRight: 'auto', marginLeft: 'auto' }}>
+              <Skeleton active /><br />
+              <Skeleton active /><br />
+              <Skeleton active />
+            </div>
+          </>
+          : <List
+            header={<h3 style={{ textAlign: 'center' }}>Shopping History</h3>}
+            bordered
+            className='history-list'
+            dataSource={list}
+            renderItem={(item) => (
+              <List.Item key={item._id}>
+                <Button type='text'
+                  onClick={(() => copyLink(item._id))}><CopyOutlined /></Button>
+                <Link to={`/history/${item._id}`} >
+                  {item.createdDate.match(/^\d{4}-\d{2}-\d{2}/)} --- COST ${item.cost}
+                </Link>
+              </List.Item>
+            )} />
+      }
+
     </div>
   )
 }

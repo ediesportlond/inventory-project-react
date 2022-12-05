@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 import {
   Form, Radio, Space, Input, Progress,
-  Button, Collapse, Upload
+  Button, Collapse, Upload, Skeleton
 } from 'antd';
 import Nav from '../components/Nav';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
@@ -224,155 +224,164 @@ export default function Update() {
     <>
       <Nav />
       <div className='container white-bg'>
-      <div className='product-name-conatiner'>
-        <h1>{values?.productName}</h1>
-      </div>
-      <div className="product-image-container">
+        <div className='product-name-conatiner'>
+          <h1>{values?.productName}</h1>
+        </div>
+        <div className="product-image-container">
+          {
+            values && values.image
+              ? <img className='product-image' src={values.image} alt={values.productName} />
+              : null
+          }
+        </div>
+
         {
-          values && values.image
-            ? <img className='product-image' src={values.image} alt={values.productName} />
-            : null
-        }
-      </div>
-      {
-        values
-          ?
-          <Form className='update-form' onFinish={handleSubmit} layout='vertical'>
+          values
+            ?
+            <Form className='update-form' onFinish={handleSubmit} layout='vertical'>
 
-            <Form.Item label='When do you want to restock?' >
-              <Radio.Group name="type" defaultValue={values?.type} onChange={handleTypeChange} >
-                <Space direction="vertical">
-                  <Radio value={"stockable"} >When my shelf is almost empty</Radio>
-                  <Radio value={"consumable"} >When the container is running low</Radio>
-                  <Radio value={"perishable"} >Before a certain date</Radio>
-                </Space>
-              </Radio.Group>
-            </Form.Item>
+              <Form.Item label='When do you want to restock?' >
+                <Radio.Group name="type" defaultValue={values?.type} onChange={handleTypeChange} >
+                  <Space direction="vertical">
+                    <Radio value={"stockable"} >When my shelf is almost empty</Radio>
+                    <Radio value={"consumable"} >When the container is running low</Radio>
+                    <Radio value={"perishable"} >Before a certain date</Radio>
+                  </Space>
+                </Radio.Group>
+              </Form.Item>
 
-            <Form.Item name="productName"
-              label="Product name" >
-              <Input defaultValue={values?.productName}
-                onChange={(e) => setUpdateValues({ ...updateValues, productName: e.target.value })} />
-            </Form.Item>
+              <Form.Item name="productName"
+                label="Product name" >
+                <Input defaultValue={values?.productName}
+                  onChange={(e) => setUpdateValues({ ...updateValues, productName: e.target.value })} />
+              </Form.Item>
 
-            <Form.Item name='inventory'
-              label="How many do you have?" >
-              <Input defaultValue={values?.inventory}
-                type='number' min='0'
-                onChange={(e) => setUpdateValues({ ...updateValues, inventory: Number(e.target.value) })} />
-            </Form.Item>
+              <Form.Item name='inventory'
+                label="How many do you have?" >
+                <Input defaultValue={values?.inventory}
+                  type='number' min='0'
+                  onChange={(e) => setUpdateValues({ ...updateValues, inventory: Number(e.target.value) })} />
+              </Form.Item>
 
-            <Form.Item name='replaceBy'
-              label={`Replace by this date: ${updateValues?.replaceBy ? updateValues.replaceBy: values?.replaceBy ? values.replaceBy: ''}`} >
-              <Input defaultValue={values?.inventory}
-                type='date'
-                onChange={handleDateChange} />
-            </Form.Item>
+              <Form.Item name='replaceBy'
+                label={`Replace by this date: ${updateValues?.replaceBy ? updateValues.replaceBy : values?.replaceBy ? values.replaceBy : ''}`} >
+                <Input defaultValue={values?.inventory}
+                  type='date'
+                  onChange={handleDateChange} />
+              </Form.Item>
 
-            {/* <label htmlFor='replaceBy'>Replace by this date</label><br />
+              {/* <label htmlFor='replaceBy'>Replace by this date</label><br />
             <input value={updateValues?.replaceBy || values?.replaceBy} name='replaceBy'
               required={values?.type === 'perishable' ? true : false}
               type='date' onChange={handleDateChange} />
             <br /><br /> */}
 
-            <Form.Item name='price'
-              label="Price">
-              <Input defaultValue={values?.price}
-                type='number' min='0' step='.01' placeholder={0}
-                onChange={(e) => setUpdateValues({ ...updateValues, price: Number(e.target.value) })} />
-            </Form.Item>
+              <Form.Item name='price'
+                label="Price">
+                <Input defaultValue={values?.price}
+                  type='number' min='0' step='.01' placeholder={0}
+                  onChange={(e) => setUpdateValues({ ...updateValues, price: Number(e.target.value) })} />
+              </Form.Item>
 
-            <Form.Item label='How much do you have left?'>
-              <Progress
-                type="circle"
-                percent={percent}
-                style={{
-                  marginRight: 8,
-                }}
-              />
-              <Button.Group>
-                <Button onClick={decline} icon={<MinusOutlined />} />
-                <Button onClick={increase} icon={<PlusOutlined />} />
-              </Button.Group>
-            </Form.Item>
+              <Form.Item label='How much do you have left?'>
+                <Progress
+                  type="circle"
+                  percent={percent}
+                  style={{
+                    marginRight: 8,
+                  }}
+                />
+                <Button.Group>
+                  <Button onClick={decline} icon={<MinusOutlined />} />
+                  <Button onClick={increase} icon={<PlusOutlined />} />
+                </Button.Group>
+              </Form.Item>
 
-            {/* Additional Info */}
-            <Collapse accordion>
-              <Panel header="Additional Info" key="1">
-                <Form.Item name="image" >
-                  <Upload listType="picture-card"
-                    accept='image'
-                    maxCount={1} >
-                    Upload an Image
-                  </Upload>
-                </Form.Item>
+              {/* Additional Info */}
+              <Collapse accordion>
+                <Panel header="Additional Info" key="1">
+                  <Form.Item name="image" >
+                    <Upload listType="picture-card"
+                      accept='image'
+                      maxCount={1} >
+                      Upload an Image
+                    </Upload>
+                  </Form.Item>
 
-                <Form.Item name="brand"
-                  label="Brand" >
-                  <Input defaultValue={values?.brand}
-                    onChange={(e) => setUpdateValues({ ...updateValues, brand: e.target.value })} />
-                </Form.Item>
+                  <Form.Item name="brand"
+                    label="Brand" >
+                    <Input defaultValue={values?.brand}
+                      onChange={(e) => setUpdateValues({ ...updateValues, brand: e.target.value })} />
+                  </Form.Item>
 
-                <Form.Item name="group"
-                  label="Group Label" >
-                  <Input defaultValue={values?.group}
-                    onChange={(e) => setUpdateValues({ ...updateValues, group: e.target.value })} />
-                </Form.Item>
+                  <Form.Item name="group"
+                    label="Group Label" >
+                    <Input defaultValue={values?.group}
+                      onChange={(e) => setUpdateValues({ ...updateValues, group: e.target.value })} />
+                  </Form.Item>
 
-                <Form.Item name="store"
-                  label="Store" >
-                  <Input defaultValue={values?.store}
-                    onChange={(e) => setUpdateValues({ ...updateValues, store: e.target.value })} />
-                </Form.Item>
+                  <Form.Item name="store"
+                    label="Store" >
+                    <Input defaultValue={values?.store}
+                      onChange={(e) => setUpdateValues({ ...updateValues, store: e.target.value })} />
+                  </Form.Item>
 
-                <Form.Item name="url"
-                  label="Link to buy" >
-                  <Input defaultValue={values?.url}
-                    onChange={(e) => setUpdateValues({ ...updateValues, url: e.target.value })} />
-                </Form.Item>
+                  <Form.Item name="url"
+                    label="Link to buy" >
+                    <Input defaultValue={values?.url}
+                      onChange={(e) => setUpdateValues({ ...updateValues, url: e.target.value })} />
+                  </Form.Item>
 
-                <Form.Item name="notes"
-                  label="Notes" >
-                  <Input defaultValue={values?.notes}
-                    onChange={(e) => setUpdateValues({ ...updateValues, notes: e.target.value })} />
-                </Form.Item>
+                  <Form.Item name="notes"
+                    label="Notes" >
+                    <Input defaultValue={values?.notes}
+                      onChange={(e) => setUpdateValues({ ...updateValues, notes: e.target.value })} />
+                  </Form.Item>
 
-                <Form.Item name="sku"
-                  label="SKU" >
-                  <Input defaultValue={values?.sku}
-                    onChange={(e) => setUpdateValues({ ...updateValues, sku: e.target.value })} />
-                </Form.Item>
-              </Panel>
+                  <Form.Item name="sku"
+                    label="SKU" >
+                    <Input defaultValue={values?.sku}
+                      onChange={(e) => setUpdateValues({ ...updateValues, sku: e.target.value })} />
+                  </Form.Item>
+                </Panel>
 
-              {/* Options */}
-              <Panel header="Options" key="2">
-                <Form.Item label='Do you want to restock when you run out?' >
-                  <Radio.Group name='restock' defaultValue={values?.restock}
-                    onChange={(e) => setUpdateValues({ ...updateValues, restock: e.target.value })}>
-                    <Radio value={true} >Yes</Radio>
-                    <Radio value={false}>No</Radio>
-                  </Radio.Group>
-                </Form.Item>
+                {/* Options */}
+                <Panel header="Options" key="2">
+                  <Form.Item label='Do you want to restock when you run out?' >
+                    <Radio.Group name='restock' defaultValue={values?.restock}
+                      onChange={(e) => setUpdateValues({ ...updateValues, restock: e.target.value })}>
+                      <Radio value={true} >Yes</Radio>
+                      <Radio value={false}>No</Radio>
+                    </Radio.Group>
+                  </Form.Item>
 
-                {/* Thresholds */}
-                <label htmlFor='threshold'>{
-                  values?.type === 'stockable'
-                    ? 'Remind me when I only have X units left'
-                    : values?.type === 'consumable'
-                      ? 'Reming me when the container is at X%'
-                      : 'Remind me X days before the replace by date'
-                }</label>
-                <Input name='treshold'
-                  min='0' type='number' onChange={e => setUpdateValues({ ...updateValues, threshold: Number(e.target.value) })}
-                  placeholder={updateValues?.threshold || values.threshold} />
-              </Panel>
-            </Collapse>
+                  {/* Thresholds */}
+                  <label htmlFor='threshold'>{
+                    values?.type === 'stockable'
+                      ? 'Remind me when I only have X units left'
+                      : values?.type === 'consumable'
+                        ? 'Reming me when the container is at X%'
+                        : 'Remind me X days before the replace by date'
+                  }</label>
+                  <Input name='treshold'
+                    min='0' type='number' onChange={e => setUpdateValues({ ...updateValues, threshold: Number(e.target.value) })}
+                    placeholder={updateValues?.threshold || values.threshold} />
+                </Panel>
+              </Collapse>
 
-            <Form.Item className="save-form-btn"> <Input type='submit' value='Save' /> </Form.Item>
-          </Form>
-          : <p>⏱ Loading ... ⏱</p>
+              <Form.Item className="save-form-btn"> <Input type='submit' value='Save' /> </Form.Item>
+            </Form>
+            : <>
+              <div style={{ width: '80%', marginRight: 'auto', marginLeft: 'auto' }}>
+                <Skeleton active /><br />
+                <Skeleton active /><br />
+                <Skeleton active /><br />
+                <Skeleton active /><br />
+                <Skeleton active />
+              </div>
+            </>
 
-      }
+        }
       </div>
     </>
   )
