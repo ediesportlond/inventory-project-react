@@ -5,7 +5,7 @@ import Nav from '../components/Nav';
 import AddNew from '../components/AddNew';
 import SearchBar from '../components/SearchBar';
 import Selector from '../components/Selector';
-import { Button, Avatar, Card, List, Progress } from 'antd';
+import { Button, Card, List, Progress } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import defaultImg from './default-img.jpg';
 import '../assets/inventory.css';

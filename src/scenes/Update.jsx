@@ -263,11 +263,18 @@ export default function Update() {
                 onChange={(e) => setUpdateValues({ ...updateValues, inventory: Number(e.target.value) })} />
             </Form.Item>
 
-            <label htmlFor='replaceBy'>Replace by this date</label><br />
+            <Form.Item name='replaceBy'
+              label={`Replace by this date: ${updateValues?.replaceBy ? updateValues.replaceBy: values?.replaceBy ? values.replaceBy: ''}`} >
+              <Input defaultValue={values?.inventory}
+                type='date'
+                onChange={handleDateChange} />
+            </Form.Item>
+
+            {/* <label htmlFor='replaceBy'>Replace by this date</label><br />
             <input value={updateValues?.replaceBy || values?.replaceBy} name='replaceBy'
               required={values?.type === 'perishable' ? true : false}
               type='date' onChange={handleDateChange} />
-            <br /><br />
+            <br /><br /> */}
 
             <Form.Item name='price'
               label="Price">
