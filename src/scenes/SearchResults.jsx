@@ -36,8 +36,8 @@ export default function ShoppingList() {
 
   return (
     <>
-      <nav className='nav-back'>
-        <Link to='/' > <h2> &larr; Go Back </h2> </Link>
+      <nav className='nav-back' >
+        <Link to='/' style={{color: 'black'}}> <h2> &larr; Go Back </h2> </Link>
       </nav>
       <div className='container'>
       <SearchBar setList={setList} />

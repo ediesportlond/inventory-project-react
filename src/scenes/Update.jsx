@@ -222,7 +222,7 @@ export default function Update() {
   return (
     <>
       <nav className='nav-back'>
-        <Link to='/' > <h2> &larr; Go Back </h2> </Link>
+        <Link to='/' style={{color:'black'}}> <h2> &larr; Go Back </h2> </Link>
       </nav>
       <div className='container'>
       <div className='product-name-conatiner'>

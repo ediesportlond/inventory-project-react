@@ -5,7 +5,7 @@ import Nav from '../components/Nav';
 import AddNew from '../components/AddNew';
 import SearchBar from '../components/SearchBar';
 import Selector from '../components/Selector';
-import { Button, Avatar, Card, List } from 'antd';
+import { Button, Avatar, Card, List, Progress } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import defaultImg from './default-img.jpg';
 import '../assets/inventory.css';
@@ -73,7 +73,7 @@ export default function Inventory() {
           </div>
         </div>
         <List
-          grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
+          grid={{ gutter: 0, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
           dataSource={list}
           renderItem={item => (
             <List.Item key={item._id}>
@@ -81,10 +81,10 @@ export default function Inventory() {
                 <Card title={item.productName + (item.brand ? ' - ' + item.brand : '')} hoverable
                   extra={<Avatar src={item.image || defaultImg} />}>
                   <>
-                    <p>Available: {item.inventory}</p>
-                    <p>Percent Remaining: {item.percentRemaining}%</p>
+                    <p>In Stock: {item.inventory}</p>
                     {item.replaceBy ? <p>Replace By: {item.replaceBy}</p> : null}
                     {item.group ? <p>Group: {item.group}</p> : null}
+                    <Progress percent={item.percentRemaining} />
                     <div className='delete-container'>
                       <Button type='text' onClick={(e) => {
                         e.preventDefault();

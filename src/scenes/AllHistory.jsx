@@ -41,7 +41,7 @@ export default function AllHistory() {
   return (
     <div className='container'>
       <nav className='nav-back'>
-        <Link to='/'> <h2> &larr; Go Back </h2> </Link>
+        <Link to='/'style={{color:'black'}}> <h2> &larr; Go Back </h2> </Link>
       </nav>
       <List
         header={<h3 style={{ textAlign: 'center' }}>Shopping History</h3>}

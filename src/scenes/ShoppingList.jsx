@@ -64,7 +64,7 @@ export default function ShoppingList() {
   return (
     <>
       <nav className='nav-back'>
-        <Link to='/'> <h2> &larr; Go Back </h2> </Link>
+        <Link to='/' style={{color:'black'}}> <h2> &larr; Go Back </h2> </Link>
       </nav>
       <div className='container'>
         <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>

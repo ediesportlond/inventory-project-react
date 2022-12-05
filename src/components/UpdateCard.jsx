@@ -236,7 +236,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
 
             <div className='row' >
               <div className='column start'>
-                <p>Available:</p>
+                <p>In Stock:</p>
               </div>
               <div className='column'>
                 <p>{item.inventory}</p>
