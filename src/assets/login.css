@@ -4,7 +4,7 @@ main {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url('https://source.unsplash.com/random');
+  background-image: url('../home-page-bg.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -23,6 +23,10 @@ main {
   text-align: center;
   border-radius: 20px;
   background-color: #414040e6;
+}
+
+.login-container > h1 {
+  margin-bottom: 20px;
 }
 
 .login-container>button {

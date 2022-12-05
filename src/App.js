@@ -47,7 +47,11 @@ function App() {
           }
         </Routes>
       </UserContext.Provider>
-      <Footer />
+      {
+        user
+        ? <Footer />
+        : null
+      }
     </div >
   );
 }

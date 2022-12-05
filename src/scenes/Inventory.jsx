@@ -7,6 +7,7 @@ import SearchBar from '../components/SearchBar';
 import Selector from '../components/Selector';
 import { Button, Avatar, Card, List } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import defaultImg from './default-img.jpg';
 import '../assets/inventory.css';
 
 export default function Inventory() {
@@ -78,7 +79,7 @@ export default function Inventory() {
             <List.Item key={item._id}>
               <Link to={`/update/${item._id}`} >
                 <Card title={item.productName + (item.brand ? ' - ' + item.brand : '')} hoverable
-                  extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />}>
+                  extra={<Avatar src={item.image || defaultImg} />}>
                   <>
                     <p>Available: {item.inventory}</p>
                     <p>Percent Remaining: {item.percentRemaining}%</p>

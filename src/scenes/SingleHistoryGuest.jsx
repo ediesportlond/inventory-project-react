@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, List } from 'antd';
+import defaultImg from './default-img.jpg';
 import '../assets/guestHistory.css';
 const { Meta } = Card;
 
@@ -43,7 +44,7 @@ export default function SingleHistory() {
                 style={{
                   width: 240,
                 }}
-                cover={<img alt="product" src={item?.image || 'https://placekitten.com/300/300'} />}
+                cover={<img alt="product" src={item?.image || defaultImg} />}
               >
                 <Meta title={item.productName + (item.brand ? ' - ' + item.brand : '')} 
                 description={'$'+item.price} />
