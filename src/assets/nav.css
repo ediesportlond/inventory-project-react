@@ -9,6 +9,10 @@ nav{
   z-index: 1;
 }
 
+.nav-back{
+  justify-content: center;
+}
+
 ul {
   display: flex;
   flex-direction: column;
