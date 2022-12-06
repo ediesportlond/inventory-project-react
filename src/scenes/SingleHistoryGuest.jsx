@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Card, List } from 'antd';
+import { Card, List, Skeleton } from 'antd';
 import defaultImg from './default-img.jpg';
 import '../assets/guestHistory.css';
 const { Meta } = Card;

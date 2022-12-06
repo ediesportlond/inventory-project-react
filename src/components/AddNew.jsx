@@ -185,7 +185,7 @@ export default function AddNew({ setShowAddNew, setList }) {
           <Form.Item name="productName"
             label="Product name"
             rules={[{ required: true, message: "Give this product a name." }]} >
-            <Input onChange={(e) => setValues({ ...values, productName: e.target.value })} />
+            <Input onChange={(e) => setValues({ ...values, productName: e.target.value.replace(/\s*$/, '') })} />
           </Form.Item>
 
           <Form.Item name='inventory'
@@ -235,37 +235,37 @@ export default function AddNew({ setShowAddNew, setList }) {
               <Form.Item name="brand"
                 label="Brand"
               >
-                <Input onChange={(e) => setValues({ ...values, brand: e.target.value })} />
+                <Input onChange={(e) => setValues({ ...values, brand: e.target.value.replace(/\s*$/, '') })} />
               </Form.Item>
 
               <Form.Item name="group"
                 label="Group Label"
               >
-                <Input onChange={(e) => setValues({ ...values, group: e.target.value })} />
+                <Input onChange={(e) => setValues({ ...values, group: e.target.value.replace(/\s*$/, '') })} />
               </Form.Item>
 
               <Form.Item name="store"
                 label="Store"
               >
-                <Input onChange={(e) => setValues({ ...values, store: e.target.value })} />
+                <Input onChange={(e) => setValues({ ...values, store: e.target.value.replace(/\s*$/, '') })} />
               </Form.Item>
 
               <Form.Item name="url"
                 label="Link to buy"
               >
-                <Input onChange={(e) => setValues({ ...values, url: e.target.value })} />
+                <Input onChange={(e) => setValues({ ...values, url: e.target.value.replace(/\s*$/, '') })} />
               </Form.Item>
 
               <Form.Item name="notes"
                 label="Notes"
               >
-                <Input onChange={(e) => setValues({ ...values, notes: e.target.value })} />
+                <Input onChange={(e) => setValues({ ...values, notes: e.target.value.replace(/\s*$/, '') })} />
               </Form.Item>
 
               <Form.Item name="sku"
                 label="SKU"
               >
-                <Input onChange={(e) => setValues({ ...values, sku: e.target.value })} />
+                <Input onChange={(e) => setValues({ ...values, sku: e.target.value.replace(/\s*$/, '') })} />
               </Form.Item>
             </Panel>
 

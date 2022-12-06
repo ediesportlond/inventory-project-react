@@ -253,7 +253,7 @@ export default function Update() {
               <Form.Item name="productName"
                 label="Product name" >
                 <Input defaultValue={values?.productName}
-                  onChange={(e) => setUpdateValues({ ...updateValues, productName: e.target.value })} />
+                  onChange={(e) => setUpdateValues({ ...updateValues, productName: e.target.value.replace(/\s*$/, '') })} />
               </Form.Item>
 
               <Form.Item name='inventory'
@@ -311,37 +311,37 @@ export default function Update() {
                   <Form.Item name="brand"
                     label="Brand" >
                     <Input defaultValue={values?.brand}
-                      onChange={(e) => setUpdateValues({ ...updateValues, brand: e.target.value })} />
+                      onChange={(e) => setUpdateValues({ ...updateValues, brand: e.target.value.replace(/\s*$/, '') })} />
                   </Form.Item>
 
                   <Form.Item name="group"
                     label="Group Label" >
                     <Input defaultValue={values?.group}
-                      onChange={(e) => setUpdateValues({ ...updateValues, group: e.target.value })} />
+                      onChange={(e) => setUpdateValues({ ...updateValues, group: e.target.value.replace(/\s*$/, '') })} />
                   </Form.Item>
 
                   <Form.Item name="store"
                     label="Store" >
                     <Input defaultValue={values?.store}
-                      onChange={(e) => setUpdateValues({ ...updateValues, store: e.target.value })} />
+                      onChange={(e) => setUpdateValues({ ...updateValues, store: e.target.value.replace(/\s*$/, '') })} />
                   </Form.Item>
 
                   <Form.Item name="url"
                     label="Link to buy" >
                     <Input defaultValue={values?.url}
-                      onChange={(e) => setUpdateValues({ ...updateValues, url: e.target.value })} />
+                      onChange={(e) => setUpdateValues({ ...updateValues, url: e.target.value.replace(/\s*$/, '') })} />
                   </Form.Item>
 
                   <Form.Item name="notes"
                     label="Notes" >
                     <Input defaultValue={values?.notes}
-                      onChange={(e) => setUpdateValues({ ...updateValues, notes: e.target.value })} />
+                      onChange={(e) => setUpdateValues({ ...updateValues, notes: e.target.value.replace(/\s*$/, '') })} />
                   </Form.Item>
 
                   <Form.Item name="sku"
                     label="SKU" >
                     <Input defaultValue={values?.sku}
-                      onChange={(e) => setUpdateValues({ ...updateValues, sku: e.target.value })} />
+                      onChange={(e) => setUpdateValues({ ...updateValues, sku: e.target.value.replace(/\s*$/, '') })} />
                   </Form.Item>
                 </Panel>
 
