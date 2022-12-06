@@ -22,9 +22,9 @@ export default function Update() {
   const convertFile = (file) => {
     if (file) {
       // const fileRef = files[0] || ""
-      const fileType = file.type || ""
-      const reader = new FileReader()
-      reader.readAsBinaryString(file)
+      const fileType = file.type || "";
+      const reader = new FileReader();
+      reader.readAsBinaryString(file);
       reader.onload = (ev) => {
         // convert it to base64
         fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${oid}`, {
@@ -36,9 +36,9 @@ export default function Update() {
           body: JSON.stringify({ ...updateValues, image: `data:${fileType};base64,${window.btoa(ev.target.result)}` })
         })
           .then((res) => {
-            navigate('/')
+            navigate('/');
           })
-          .catch(console.error)
+          .catch(console.error);
       }
     }
   };
@@ -50,7 +50,7 @@ export default function Update() {
     const day = hour * 24;
 
     if (isNaN(threshold)) {
-      threshold = Date.parse(values?.replaceBy + ' ') - Date.parse(threshold + ' ')
+      threshold = Date.parse(values?.replaceBy + ' ') - Date.parse(threshold + ' ');
 
     } else {
       threshold *= day;  //change threshold days to ms
@@ -75,14 +75,13 @@ export default function Update() {
     let year = nums[1];
     if (_day.length < 2) _day = '0' + _day;
 
-    return `${year}-${month}-${_day}`
-
+    return `${year}-${month}-${_day}`;
   };
 
   const handleSubmit = (val) => {
     if (!updateValues && !val?.image) return;
 
-    setUpdateValues({ ...updateValues, percentRemaining: percent })
+    setUpdateValues({ ...updateValues, percentRemaining: percent });
 
     let type, threshold;
     if (updateValues?.threshold && updateValues.type) {
@@ -103,12 +102,12 @@ export default function Update() {
       }
     }
 
-    if (updateValues?.productName) updateValues.productName = updateValues.productName[0].toUpperCase() + updateValues.productName.substring(1,)
-    if (updateValues?.replaceBy) updateValues.replaceBy = new Date(updateValues.replaceBy + ' ').toDateString().replace(/^\w{3}\s/, '')
-    if (updateValues?.brand) updateValues.brand = updateValues.brand[0].toUpperCase() + updateValues.brand.substring(1,)
-    if (updateValues?.group) updateValues.group = updateValues.group[0].toUpperCase() + updateValues.group.substring(1,)
-    if (updateValues?.store) updateValues.store = updateValues.store[0].toUpperCase() + updateValues.store.substring(1,)
-    if (updateValues?.notes) updateValues.notes = updateValues.notes[0].toUpperCase() + updateValues.notes.substring(1,)
+    if (updateValues?.productName) updateValues.productName = updateValues.productName[0].toUpperCase() + updateValues.productName.substring(1,);
+    if (updateValues?.replaceBy) updateValues.replaceBy = new Date(updateValues.replaceBy + ' ').toDateString().replace(/^\w{3}\s/, '');
+    if (updateValues?.brand) updateValues.brand = updateValues.brand[0].toUpperCase() + updateValues.brand.substring(1,);
+    if (updateValues?.group) updateValues.group = updateValues.group[0].toUpperCase() + updateValues.group.substring(1,);
+    if (updateValues?.store) updateValues.store = updateValues.store[0].toUpperCase() + updateValues.store.substring(1,);
+    if (updateValues?.notes) updateValues.notes = updateValues.notes[0].toUpperCase() + updateValues.notes.substring(1,);
 
     if (val.image && val.image.file) {
       convertFile(val.image.file.originFileObj);
@@ -128,14 +127,14 @@ export default function Update() {
 
   const handleTypeChange = (e) => {
     if (e.target.value === 'stockable' && values.type !== e.target.value) {
-      setValues({ ...values, type: e.target.value, threshold: 1 })
-      setUpdateValues({ ...updateValues, type: e.target.value, threshold: 1 })
+      setValues({ ...values, type: e.target.value, threshold: 1 });
+      setUpdateValues({ ...updateValues, type: e.target.value, threshold: 1 });
     } else if (e.target.value === 'consumable' && values.type !== e.target.value) {
-      setValues({ ...values, type: e.target.value, threshold: 25 })
-      setUpdateValues({ ...updateValues, type: e.target.value, threshold: 25 })
+      setValues({ ...values, type: e.target.value, threshold: 25 });
+      setUpdateValues({ ...updateValues, type: e.target.value, threshold: 25 });
     } else {
-      setValues({ ...values, type: e.target.value, threshold: 7 })
-      setUpdateValues({ ...updateValues, type: e.target.value, threshold: 7 })
+      setValues({ ...values, type: e.target.value, threshold: 7 });
+      setUpdateValues({ ...updateValues, type: e.target.value, threshold: 7 });
     }
   };
 
@@ -145,7 +144,7 @@ export default function Update() {
       newPercent = 100;
     }
     setPercent(newPercent);
-    setUpdateValues({ ...updateValues, percentRemaining: newPercent })
+    setUpdateValues({ ...updateValues, percentRemaining: newPercent });
   };
 
   const decline = () => {
@@ -167,7 +166,7 @@ export default function Update() {
 
     } else if (values?.type === 'perishable' && updateValues?.threshold) {
 
-      const newThreshold = generateThreshold(e.target.value, updateValues.threshold)
+      const newThreshold = generateThreshold(e.target.value, updateValues.threshold);
       setUpdateValues({ ...updateValues, threshold: newThreshold, replaceBy: e.target.value });
       return;
 
@@ -205,17 +204,17 @@ export default function Update() {
             let day = nums[0];
             let year = nums[1];
             if (day.length < 2) day = '0' + day;
-            setValues({ ...res.message, replaceBy: `${year}-${month}-${day}` })
+            setValues({ ...res.message, replaceBy: `${year}-${month}-${day}` });
             setPercent(res.message.percentRemaining);
           } else {
-            setValues(res.message)
+            setValues(res.message);
             setPercent(res.message.percentRemaining);
           }
         } else {
-          console.error('Server did not respond. Please try again.')
+          console.error('Server did not respond. Please try again.');
         }
       })
-      .catch(console.error)
+      .catch(console.error);
   }, [oid, token, setValues])
 
   const { Panel } = Collapse
@@ -269,12 +268,6 @@ export default function Update() {
                   type='date'
                   onChange={handleDateChange} />
               </Form.Item>
-
-              {/* <label htmlFor='replaceBy'>Replace by this date</label><br />
-            <input value={updateValues?.replaceBy || values?.replaceBy} name='replaceBy'
-              required={values?.type === 'perishable' ? true : false}
-              type='date' onChange={handleDateChange} />
-            <br /><br /> */}
 
               <Form.Item name='price'
                 label="Price">
@@ -380,7 +373,6 @@ export default function Update() {
                 <Skeleton active />
               </div>
             </>
-
         }
       </div>
     </>

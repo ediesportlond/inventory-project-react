@@ -33,10 +33,10 @@ export default function ShoppingList() {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
         return res.json()
       })
@@ -56,18 +56,18 @@ export default function ShoppingList() {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
-        return res.json()
+        return res.json();
       })
       .then((result) => {
-        setCost(result.message.shift().cost)
-        setList(result.message)
+        setCost(result.message.shift().cost);
+        setList(result.message);
       })
-      .catch(console.error)
+      .catch(console.error);
   }, [token, setToken, setUser, refresh])
 
   return (

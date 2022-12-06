@@ -27,15 +27,15 @@ export default function Inventory() {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
-        return res.json()
+        return res.json();
       })
       .then((result) => setList(result.message))
-      .catch(console.error)
+      .catch(console.error);
   }, [token, setToken, setUser, refresh])
 
   const deleteItem = (id, productName) => {
@@ -52,12 +52,12 @@ export default function Inventory() {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
-        return res.json()
+        return res.json();
       })
       .then(() => setRefresh(!refresh))
       .catch(console.error);

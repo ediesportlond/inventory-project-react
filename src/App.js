@@ -17,10 +17,10 @@ function App() {
   const [token, setToken] = useState();
 
   useEffect(() => {
-    const _user = JSON.parse(sessionStorage.getItem('user'))
+    const _user = JSON.parse(sessionStorage.getItem('user'));
     if (_user !== "") {
-      setUser(_user)
-      setToken(_user?.stsTokenManager.accessToken)
+      setUser(_user);
+      setToken(_user?.stsTokenManager.accessToken);
     }
   }, [])
 

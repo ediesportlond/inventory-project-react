@@ -22,15 +22,15 @@ export default function ShoppingList() {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
-        return res.json()
+        return res.json();
       })
       .then((result) => {
-        setList(result.message)
+        setList(result.message);
       })
       .catch(console.error)
   }, [token, setToken, setUser, search, refresh])

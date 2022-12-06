@@ -21,8 +21,8 @@ export default function SingleHistory() {
     })
       .then(res => res.json())
       .then(res => {
-        setCost(res.message.cost)
-        setList(res.message.list)
+        setCost(res.message.cost);
+        setList(res.message.list);
       })
       .catch(console.error);
   }, [setCost, setList, oid])

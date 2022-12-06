@@ -2,12 +2,12 @@ import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import {UserContext} from '../App';
 import Nav from '../components/Nav';
-import { Card, List, Avatar } from 'antd';
+import { Card, List, Avatar, Skeleton } from 'antd';
 
 export default function SingleHistory() {
 
   const { token, setUser, setToken } = useContext(UserContext);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState();
   const [cost,setCost] = useState();
   const { oid } = useParams();
 
@@ -21,16 +21,16 @@ export default function SingleHistory() {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
         return res.json()
       })
       .then(res => {
-        setCost(res.message.cost)
-        setList(res.message.list)
+        setCost(res.message.cost);
+        setList(res.message.list);
       })
       .catch(console.error);
 
@@ -41,7 +41,19 @@ export default function SingleHistory() {
       <Nav />
       <div className="container">
       <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
-        <List
+      {
+          !list
+            ? <>
+              <div style={{ width: '60%', marginRight: 'auto', marginLeft: 'auto' }}>
+                <Skeleton.Image active /><br /><br />
+                <Skeleton active /><br />
+                <Skeleton.Image active /><br /><br />
+                <Skeleton active /><br />
+                <Skeleton.Image active /><br /><br />
+                <Skeleton active />
+              </div>
+            </>
+            : <List
           grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
           dataSource={list}
           renderItem={item => (
@@ -58,6 +70,7 @@ export default function SingleHistory() {
             </List.Item>
           )}
         />
+      }
       </div>
     </>
   )

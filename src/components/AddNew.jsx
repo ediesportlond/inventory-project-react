@@ -33,9 +33,9 @@ export default function AddNew({ setShowAddNew, setList }) {
   const convertFile = (file) => {
     if (file) {
       // const fileRef = files[0] || ""
-      const fileType = file.type || ""
-      const reader = new FileReader()
-      reader.readAsBinaryString(file)
+      const fileType = file.type || "";
+      const reader = new FileReader();
+      reader.readAsBinaryString(file);
       reader.onload = (ev) => {
         // convert it to base64
         fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/new`, {
@@ -48,10 +48,10 @@ export default function AddNew({ setShowAddNew, setList }) {
         })
           .then(res => res.json())
           .then((res) => {
-            setList(res.message)
-            setShowAddNew(false)
+            setList(res.message);
+            setShowAddNew(false);
           })
-          .catch(console.error)
+          .catch(console.error);
       }
     }
   };
@@ -63,7 +63,7 @@ export default function AddNew({ setShowAddNew, setList }) {
     const day = hour * 24;
 
     if (isNaN(threshold)) {
-      threshold = Date.parse(values?.replaceBy + ' ') - Date.parse(threshold + ' ')
+      threshold = Date.parse(values?.replaceBy + ' ') - Date.parse(threshold + ' ');
 
     } else {
       threshold *= day;  //change threshold days to ms
@@ -87,33 +87,32 @@ export default function AddNew({ setShowAddNew, setList }) {
     let _day = nums[0];
     let year = nums[1];
     if (_day.length < 2) _day = '0' + _day;
-    return `${year}-${month}-${_day}`
+    return `${year}-${month}-${_day}`;
   };
 
-  const [values, setValues] = useState(defaultValues)
+  const [values, setValues] = useState(defaultValues);
   const [percent, setPercent] = useState(100);
 
   const handleSubmit = (val) => {
 
     if (values.type === 'stockable' && !values.threshold) {
-      values.threshold = 1
+      values.threshold = 1;
     } else if (values.type === 'consumable' && !values.threshold) {
-      values.threshold = 25
+      values.threshold = 25;
     } else if (values.type === 'perishable' && !values.threshold) {
-      values.threshold = generateThreshold(values.replaceBy, 7)
+      values.threshold = generateThreshold(values.replaceBy, 7);
     } else if (values.type === 'perishable') {
-      values.threshold = generateThreshold(values.replaceBy, values.threshold)
+      values.threshold = generateThreshold(values.replaceBy, values.threshold);
     }
-    values.productName = values.productName[0].toUpperCase() + values.productName.substring(1,)
-    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy + ' ').toDateString().replace(/^\w{3}\s/, '')
-    // if (values.type !== 'perishable' && values.threshold) values.threshold = Number(values.threshold)
-    if (values.brand) values.brand = values.brand[0].toUpperCase() + values.brand.substring(1,)
-    if (values.group) values.group = values.group[0].toUpperCase() + values.group.substring(1,)
-    if (values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,)
-    if (values.notes) values.notes = values.notes[0].toUpperCase() + values.notes.substring(1,)
+    values.productName = values.productName[0].toUpperCase() + values.productName.substring(1,);
+    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy + ' ').toDateString().replace(/^\w{3}\s/, '');
+    if (values.brand) values.brand = values.brand[0].toUpperCase() + values.brand.substring(1,);
+    if (values.group) values.group = values.group[0].toUpperCase() + values.group.substring(1,);
+    if (values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,);
+    if (values.notes) values.notes = values.notes[0].toUpperCase() + values.notes.substring(1,);
 
     if (val.image && val.image.file) {
-      convertFile(val.image.file.originFileObj)
+      convertFile(val.image.file.originFileObj);
     } else {
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/new`, {
         method: "POST",
@@ -125,10 +124,10 @@ export default function AddNew({ setShowAddNew, setList }) {
       })
         .then(res => res.json())
         .then((res) => {
-          setList(res.message)
-          setShowAddNew(false)
+          setList(res.message);
+          setShowAddNew(false);
         })
-        .catch(console.error)
+        .catch(console.error);
     }
 
   };
@@ -136,11 +135,11 @@ export default function AddNew({ setShowAddNew, setList }) {
   const handleTypeChange = (e) => {
 
     if (e.target.value === 'stockable') {
-      setValues({ ...values, type: e.target.value, threshold: 1 })
+      setValues({ ...values, type: e.target.value, threshold: 1 });
     } else if (e.target.value === 'consumable') {
-      setValues({ ...values, type: e.target.value, threshold: 25 })
+      setValues({ ...values, type: e.target.value, threshold: 25 });
     } else {
-      setValues({ ...values, type: e.target.value, threshold: 7 })
+      setValues({ ...values, type: e.target.value, threshold: 7 });
     }
 
   };
@@ -150,7 +149,7 @@ export default function AddNew({ setShowAddNew, setList }) {
       newPercent = 100;
     }
     setPercent(newPercent);
-    setValues({ ...values, percentRemaining: newPercent })
+    setValues({ ...values, percentRemaining: newPercent });
   };
   const decline = () => {
     let newPercent = percent - 5;
@@ -158,10 +157,10 @@ export default function AddNew({ setShowAddNew, setList }) {
       newPercent = 0;
     }
     setPercent(newPercent);
-    setValues({ ...values, percentRemaining: newPercent })
+    setValues({ ...values, percentRemaining: newPercent });
   };
 
-  const { Panel } = Collapse
+  const { Panel } = Collapse;
 
   return (
     <>

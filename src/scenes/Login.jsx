@@ -3,8 +3,8 @@ import {UserContext} from '../App.js';
 import firebaseConfig from '../firebaseConfig.js';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { Button } from 'antd'
-import '../assets/login.css'
+import { Button } from 'antd';
+import '../assets/login.css';
 
 export default function Login() {
   const { setUser, setToken } = useContext(UserContext);
@@ -14,7 +14,7 @@ export default function Login() {
       const auth = getAuth(app);
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider)
-          .catch(console.error)
+          .catch(console.error);
 
       const token = result.user.stsTokenManager.accessToken;
       sessionStorage.setItem('token', token);

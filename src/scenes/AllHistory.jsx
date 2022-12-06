@@ -27,12 +27,12 @@ export default function AllHistory() {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
-        return res.json()
+        return res.json();
       })
       .then(res => setList(res.message))
       .catch(console.error);
@@ -75,7 +75,6 @@ export default function AllHistory() {
               </List.Item>
             )} />
       }
-
     </div>
   )
 }

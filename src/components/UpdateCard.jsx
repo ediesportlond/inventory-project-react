@@ -20,16 +20,15 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
-        return res.json()
+        return res.json();
       })
       .then(() => setRefresh(!refresh))
-
-    // setInventory(inventory + 1);
+      .catch(console.error);
   }
 
   const decreaseInventory = () => {
@@ -44,16 +43,15 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
       })
         .then(res => {
           if (res.status === 401) {
-            setUser()
-            setToken()
-            sessionStorage.removeItem('user')
-            sessionStorage.removeItem('token')
+            setUser();
+            setToken();
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('token');
           }
-          return res.json()
+          return res.json();
         })
         .then(() => setRefresh(!refresh))
-
-      // setInventory(inventory - 1);
+        .catch(console.error);
     }
   }
 
@@ -71,16 +69,15 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
       })
         .then(res => {
           if (res.status === 401) {
-            setUser()
-            setToken()
-            sessionStorage.removeItem('user')
-            sessionStorage.removeItem('token')
+            setUser();
+            setToken();
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('token');
           }
-          return res.json()
+          return res.json();
         })
         .then(() => setRefresh(!refresh))
-
-      // setPercent(percent + 5);
+        .catch(console.error);
     }
   }
 
@@ -96,16 +93,15 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
       })
         .then(res => {
           if (res.status === 401) {
-            setUser()
-            setToken()
-            sessionStorage.removeItem('user')
-            sessionStorage.removeItem('token')
+            setUser();
+            setToken();
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('token');
           }
-          return res.json()
+          return res.json();
         })
         .then(() => setRefresh(!refresh))
-
-      // setPercent(percent - 5);
+        .catch(console.error);
     }
   }
 
@@ -116,7 +112,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
     const day = hour * 24;
 
     if (isNaN(threshold)) {
-      threshold = Date.parse(item?.replaceBy + ' ') - Date.parse(threshold + ' ')
+      threshold = Date.parse(item?.replaceBy + ' ') - Date.parse(threshold + ' ');
 
     } else {
       threshold *= day;  //change threshold days to ms
@@ -141,7 +137,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
     let year = nums[1];
     if (_day.length < 2) _day = '0' + _day;
 
-    return `${year}-${month}-${_day}`
+    return `${year}-${month}-${_day}`;
 
   };
 
@@ -151,7 +147,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
 
       const newThreshold = generateThreshold(value, item.threshold);
 
-      const newDate = new Date(value + ' ').toDateString().replace(/^\w{3}\s/, '')
+      const newDate = new Date(value + ' ').toDateString().replace(/^\w{3}\s/, '');
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
         method: 'PATCH',
         headers: {
@@ -162,19 +158,18 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
       })
         .then(res => {
           if (res.status === 401) {
-            setUser()
-            setToken()
-            sessionStorage.removeItem('user')
-            sessionStorage.removeItem('token')
+            setUser();
+            setToken();
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('token');
           }
-          return res.json()
+          return res.json();
         })
         .then(() => setRefresh(!refresh))
-      // setDate(newDate);
-
+        .catch(console.error);
     } else {
 
-      const newDate = new Date(value + ' ').toDateString().replace(/^\w{3}\s/, '')
+      const newDate = new Date(value + ' ').toDateString().replace(/^\w{3}\s/, '');
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
         method: 'PATCH',
         headers: {
@@ -185,15 +180,15 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
       })
         .then(res => {
           if (res.status === 401) {
-            setUser()
-            setToken()
-            sessionStorage.removeItem('user')
-            sessionStorage.removeItem('token')
+            setUser();
+            setToken();
+            sessionStorage.removeItem('user');
+            sessionStorage.removeItem('token');
           }
-          return res.json()
+          return res.json();
         })
         .then(() => setRefresh(!refresh))
-      // setDate(newDate);
+        .catch(console.error);
     }
 
 
@@ -210,18 +205,15 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
-        return res.json()
+        return res.json();
       })
       .then(() => setRefresh(!refresh))
       .catch(console.error);
-
-    // setPrice(value);
-
   }
 
   const deleteItem = (id, productName) => {
@@ -238,12 +230,12 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
-        return res.json()
+        return res.json();
       })
       .then(() => setRefresh(!refresh))
       .catch(console.error);

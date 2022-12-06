@@ -9,7 +9,7 @@ export default function Selector({ setList }) {
 
 
   const getSelected = (selected) => {
-    setSelected(selected)
+    setSelected(selected);
     fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/select/${selected}`, {
       method: 'GET',
       headers: {
@@ -19,20 +19,20 @@ export default function Selector({ setList }) {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
         return res.json()
       })
       .then((result) => setList(result.message))
-      .catch(console.error)
+      .catch(console.error);
 
   }
 
   const getAll = () => {
-    setSelected('all')
+    setSelected('all');
     fetch(process.env.REACT_APP_ENDPOINT + '/inventory', {
       method: 'GET',
       headers: {
@@ -42,15 +42,15 @@ export default function Selector({ setList }) {
     })
       .then(res => {
         if (res.status === 401) {
-          setUser()
-          setToken()
-          sessionStorage.removeItem('user')
-          sessionStorage.removeItem('token')
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
         }
-        return res.json()
+        return res.json();
       })
       .then((result) => setList(result.message))
-      .catch(console.error)
+      .catch(console.error);
   }
 
   return (
@@ -60,24 +60,24 @@ export default function Selector({ setList }) {
           selected === 'instock'
             ? <>
               <Button type='primary' onClick={() => getSelected('instock')}>In stock</Button>
-              <Button type='dashed' onClick={getAll}>All</Button>
+              <Button onClick={getAll}>All Items</Button>
               <Button danger ghost onClick={() => getSelected('nostock')}>Out of stock</Button>
             </>
             : selected === 'nostock'
               ? <>
                 <Button type='primary' ghost onClick={() => getSelected('instock')}>In stock</Button>
-                <Button type='dashed' onClick={getAll}>All</Button>
-                <Button danger onClick={() => getSelected('nostock')}>Out of stock</Button>
+                <Button onClick={getAll}>All Items</Button>
+                <Button type='primary' danger onClick={() => getSelected('nostock')}>Out of stock</Button>
               </>
               : selected === 'all'
                 ? <>
                   <Button type='primary' ghost onClick={() => getSelected('instock')}>In stock</Button>
-                  <Button onClick={getAll}>All</Button>
+                  <Button type='primary' onClick={getAll}>All Items</Button>
                   <Button danger ghost onClick={() => getSelected('nostock')}>Out of stock</Button>
                 </>
                 : <>
                   <Button type='primary' ghost onClick={() => getSelected('instock')}>In stock</Button>
-                  <Button type='dashed' onClick={getAll}>All</Button>
+                  <Button onClick={getAll}>All Items</Button>
                   <Button danger ghost onClick={() => getSelected('nostock')}>Out of stock</Button>
                 </>
         }

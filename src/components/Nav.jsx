@@ -8,7 +8,7 @@ import '../assets/nav.css';
 export default function Nav() {
   const { user, setUser, setToken } = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const showDrawer = () => {
     setOpen(true);
   };
