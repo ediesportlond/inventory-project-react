@@ -8,7 +8,7 @@ import '../assets/shoppingList.css';
 
 export default function ShoppingList() {
   const { token, setUser, setToken } = useContext(UserContext);
-  const [list, setList] = useState([]);
+  const [list, setList] = useState();
   const [cost, setCost] = useState('');
   const [refresh, setRefresh] = useState(false);
   const [visible, setVisible] = useState(false);
