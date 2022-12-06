@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import {UserContext} from '../App';
+import defaultImg from './default-img.jpg';
 import Nav from '../components/Nav';
 import { Card, List, Avatar, Skeleton } from 'antd';
 
@@ -59,7 +60,7 @@ export default function SingleHistory() {
           renderItem={item => (
             <List.Item key={item._id}>
               <Card title={item.productName + (item.brand ? ' - ' + item.brand : '')} hoverable
-                extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />}>
+                extra={<Avatar src={item.image || defaultImg} />}>
                 <>
                   <p>Available: {item.inventory}</p>
                   <p>Percent Remaining: {item.percentRemaining}%</p>

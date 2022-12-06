@@ -42,7 +42,7 @@ export default function AllHistory() {
   const copyLink = (id) => {
     // navigator.clipboard.writeText(`dtpyemhoit4nr.cloudfront.net/index.html/view/${id}`);
     setVisible(true);
-    setMessage(`Your link to share this list is: \n http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`);
+    setMessage(`Your link to share this list is: http://inventory-project-ee.s3-website-us-east-1.amazonaws.com/view/${id}`);
   }
 
   return (

@@ -263,7 +263,9 @@ export default function Update() {
               </Form.Item>
 
               <Form.Item name='replaceBy'
-                label={`Replace by this date: ${updateValues?.replaceBy ? updateValues.replaceBy : values?.replaceBy ? values.replaceBy : ''}`} >
+                label={`Replace by this date: ${updateValues?.replaceBy ? updateValues.replaceBy : values?.replaceBy ? values.replaceBy : ''}`} 
+                rules={values.type === 'perishable' ? [{ required: true, message: "Enter a date" }] : null}
+                >
                 <Input defaultValue={values?.inventory}
                   type='date'
                   onChange={handleDateChange} />

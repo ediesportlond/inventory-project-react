@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
+import defaultImg from '../scenes/default-img.jpg';
 import { Card, Avatar, Button, Input } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import '../assets/updateCard.css';
@@ -245,7 +246,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
     <>
       <Card className='update-card' title={<Link to={`/update/${item._id}`}><EditOutlined /> {item.productName + (item.brand ? ' - ' + item.brand : '')}</Link>}
         hoverable
-        extra={<Avatar src={item.image || 'https://placekitten.com/100/100'} />} >
+        extra={<Avatar src={item.image || defaultImg} />} >
         <>
           <div className='update-card-body' >
 
