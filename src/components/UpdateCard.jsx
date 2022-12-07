@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
-import defaultImg from '../scenes/default-img.jpg';
+import defaultImg from '../scenes/default-img.webp';
 import { Card, Avatar, Button, Input } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import '../assets/updateCard.css';

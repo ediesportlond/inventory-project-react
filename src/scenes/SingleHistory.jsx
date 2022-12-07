@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import {UserContext} from '../App';
-import defaultImg from './default-img.jpg';
+import defaultImg from './default-img.webp';
 import Nav from '../components/Nav';
 import { Card, List, Avatar, Skeleton } from 'antd';
 

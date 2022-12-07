@@ -7,7 +7,7 @@ import SearchBar from '../components/SearchBar';
 import Selector from '../components/Selector';
 import { Button, Card, List, Progress, Skeleton } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import defaultImg from './default-img.jpg';
+import defaultImg from './default-img.webp';
 import '../assets/inventory.css';
 
 export default function Inventory() {
