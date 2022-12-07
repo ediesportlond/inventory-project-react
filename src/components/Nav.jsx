@@ -29,8 +29,8 @@ export default function Nav() {
       <Drawer title="Navigation" placement="right" onClose={onClose} open={open}>
         <ul>
           <li><Button type='text' onClick={() => navigate('/')}>All Inventory</Button></li>
-          <li><Button type='text' onClick={() => navigate('/shopping')}>Generate Shopping List </Button></li>
-          <li><Button type='text' onClick={() => navigate('/history')}>Shopping List History </Button></li>
+          <li><Button type='text' onClick={() => navigate('/shopping')}>New Shopping List </Button></li>
+          <li><Button type='text' onClick={() => navigate('/history')}>Shopping History </Button></li>
           <li><Button type='text' onClick={() => {
             setUser();
             setToken();

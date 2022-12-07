@@ -4,3 +4,7 @@
   margin-bottom: 1rem;
   width: 100%;
 }
+
+.selector-btn-container > button {
+  width: 110px;
+}
