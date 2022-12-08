@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Card, List, Skeleton } from 'antd';
+import { Card, List, Skeleton, Checkbox } from 'antd';
 import defaultImg from './default-img.webp';
 import '../assets/guestHistory.css';
 const { Meta } = Card;
@@ -60,6 +60,7 @@ export default function SingleHistory() {
                   >
                     <Meta title={item.productName + (item.brand ? ' - ' + item.brand : '')}
                       description={!isNaN(item?.price) && `$${Number(item?.price).toFixed(2)}`} />
+                      <div style={{display: 'flex', justifyContent: 'center'}}><Checkbox /></div>
                   </Card>
                 </List.Item>
               )} />
