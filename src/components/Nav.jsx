@@ -19,7 +19,7 @@ export default function Nav() {
   return (
     <>
       <nav style={{ justifyContent: 'space-around' }}>
-        <h3>{<Avatar src={user.photoURL} />} <span style={{fontFamily: 'system-ui', fontWeight: 'normal'}}>{user?.displayName.match(/.+\s/) || 'Guest'}</span></h3>
+        <h4>{<Avatar src={user.photoURL} />} <span style={{fontFamily: 'system-ui', fontWeight: 'normal'}}>{user?.displayName.match(/.+\s/) || 'Guest'}</span></h4>
         <Link to='/'><img className='stock-up-logo' src={logo} alt="Stock Up Logo" /></Link>
         <Button type="text" onClick={showDrawer}>
           <MenuOutlined className='hamburger' />
