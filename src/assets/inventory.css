@@ -27,3 +27,6 @@
   margin: 1rem 0 1rem 0;
 }
 
+.ant-card-cover{
+  margin-top: 0 !important;
+}
