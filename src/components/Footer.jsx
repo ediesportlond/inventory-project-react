@@ -1,7 +1,7 @@
 export default function Footer(){
   return(
     <footer>
-      <h3>&copy; Eddie Espinosa 2022</h3>
+      <p style={{fontFamily: 'system-ui'}}>&copy; Eddie Espinosa 2022</p>
     </footer>
   )
 }

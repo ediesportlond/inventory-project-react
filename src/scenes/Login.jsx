@@ -5,6 +5,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { Button } from 'antd';
 import '../assets/login.css';
+import logo from '../components/logo.png'
 
 export default function Login() {
   const { setUser, setToken } = useContext(UserContext);
@@ -28,8 +29,8 @@ export default function Login() {
     <>
       <main>
         <div className='login-container'>
-          <h1>Welcome to Stock Up</h1>
-          <p>A powerful application to manage your inventory of home goods.</p>
+          <img src={logo} alt="Stock Up Logo" />
+          <p>At Home Inventory Management</p>
           <Button onClick={loginWithGoogle} type='primary'>Login with Google</Button>
         </div>
       </main>      

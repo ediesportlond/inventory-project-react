@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 import { Avatar, Button, Drawer } from 'antd';
 import { MenuOutlined } from '@ant-design/icons';
+import logo from './logo.png';
 import '../assets/nav.css';
 
 export default function Nav() {
@@ -17,10 +18,9 @@ export default function Nav() {
   };
   return (
     <>
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossOrigin="anonymous"></link>
       <nav style={{ justifyContent: 'space-around' }}>
-        <h3>{<Avatar src={user.photoURL} />} {user?.displayName.match(/.+\s/) || 'Guest'}</h3>
-        <Link to='/shopping'><i className="fa fa-cart-plus" style={{ fontSize: '24px' }}></i></Link>
+        <h3>{<Avatar src={user.photoURL} />} <span style={{fontFamily: 'system-ui', fontWeight: 'normal'}}>{user?.displayName.match(/.+\s/) || 'Guest'}</span></h3>
+        <Link to='/'><img className='stock-up-logo' src={logo} alt="Stock Up Logo" /></Link>
         <Button type="text" onClick={showDrawer}>
           <MenuOutlined className='hamburger' />
         </Button>

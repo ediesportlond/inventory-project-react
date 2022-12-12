@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react';
+import { Link } from 'react-router-dom'
 import { UserContext } from '../App';
 import { Button } from 'antd';
 import '../assets/selector.css';
@@ -55,29 +56,24 @@ export default function Selector({ setList }) {
 
   return (
     <>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossOrigin="anonymous"></link>
       <div className="selector-btn-container">
         {
           selected === 'instock'
             ? <>
               <Button type='primary' onClick={() => getSelected('instock')}>In stock</Button>
-              <Button onClick={getAll}>All Items</Button>
+              <Button type='text'><Link to='/shopping'><i className="fa fa-cart-plus" ></i></Link></Button>
               <Button danger ghost onClick={() => getSelected('nostock')}>Out of stock</Button>
             </>
             : selected === 'nostock'
               ? <>
                 <Button type='primary' ghost onClick={() => getSelected('instock')}>In stock</Button>
-                <Button onClick={getAll}>All Items</Button>
+                <Button type='text'><Link to='/shopping'><i className="fa fa-cart-plus" ></i></Link></Button>
                 <Button type='primary' danger onClick={() => getSelected('nostock')}>Out of stock</Button>
               </>
-              : selected === 'all'
-                ? <>
+              : <>
                   <Button type='primary' ghost onClick={() => getSelected('instock')}>In stock</Button>
-                  <Button type='primary' onClick={getAll}>All Items</Button>
-                  <Button danger ghost onClick={() => getSelected('nostock')}>Out of stock</Button>
-                </>
-                : <>
-                  <Button type='primary' ghost onClick={() => getSelected('instock')}>In stock</Button>
-                  <Button onClick={getAll}>All Items</Button>
+                  <Button type='text'><Link to='/shopping'><i className="fa fa-cart-plus" ></i></Link></Button>
                   <Button danger ghost onClick={() => getSelected('nostock')}>Out of stock</Button>
                 </>
         }
