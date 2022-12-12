@@ -244,7 +244,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
               </div>
             </div>
 
-            <div className='delete-container'>
+            <div className='delete-container del-update-card-contain'>
               <Button type='text' onClick={(e) => {
                 e.preventDefault();
                 handleUpdate();

@@ -39,7 +39,7 @@ export default function ShoppingList() {
     <>
       <Nav />
       <div className='container'>
-        <SearchBar setList={setList} />
+        <SearchBar />
         <br />
         <br />
         {

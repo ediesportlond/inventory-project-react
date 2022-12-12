@@ -23,7 +23,11 @@
 
 .delete-container{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+}
+
+.del-update-card-contain{
+  justify-content: space-between !important;
 }
 
 .column > .button-container{
