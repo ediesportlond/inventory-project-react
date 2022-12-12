@@ -30,7 +30,7 @@ export default function Login() {
       <main>
         <div className='login-container'>
           <img src={logo} alt="Stock Up Logo" />
-          <p>At Home Inventory Management</p>
+          <h3>At Home Inventory Management</h3>
           <Button onClick={loginWithGoogle} type='primary'>Login with Google</Button>
         </div>
       </main>      
