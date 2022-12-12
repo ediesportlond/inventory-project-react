@@ -66,6 +66,7 @@ export default function SingleHistory() {
                   <p>Percent Remaining: {item.percentRemaining}%</p>
                   {item.replaceBy ? <p>Replace By: {item.replaceBy}</p> : null}
                   {item.group ? <p>Group: {item.group}</p> : null}
+                  {item.price ? <p>Price: ${item.price}</p>: null}
                 </>
               </Card>
             </List.Item>

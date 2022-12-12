@@ -28,13 +28,11 @@ export default function Login() {
     <>
       <main>
         <div className='login-container'>
-          <h1>Welcome to RepleniX</h1>
+          <h1>Welcome to Stock Up</h1>
           <p>A powerful application to manage your inventory of home goods.</p>
           <Button onClick={loginWithGoogle} type='primary'>Login with Google</Button>
         </div>
-      </main>
-
-      
+      </main>      
     </>
   )
 }
