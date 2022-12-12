@@ -1,23 +1,29 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App';
 import defaultImg from '../scenes/default-img.webp';
-import { Card, Avatar, Button, Input } from 'antd';
+import { Card, Avatar, Button, Input, Alert } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import '../assets/updateCard.css';
 
 export default function UpdateCard({ item, refresh, setRefresh }) {
   const { token, setUser, setToken } = useContext(UserContext);
+  const [values, setValues] = useState({ inventory: item['inventory'], percentRemaining: item['percentRemaining'] });
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState();
 
-  const increaseInventory = () => {
+  const handleClose = () => {
+    setVisible(false);
+  };
 
+  const handleUpdate = () => {
     fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': token
       },
-      body: JSON.stringify({ inventory: item.inventory + 1 })
+      body: JSON.stringify(values)
     })
       .then(res => {
         if (res.status === 401) {
@@ -28,82 +34,11 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
         }
         return res.json();
       })
-      .then(() => setRefresh(!refresh))
+      .then(() => {
+        setMessage(`${item.productName} has been updated.`)
+        setVisible(true)
+      })
       .catch(console.error);
-  }
-
-  const decreaseInventory = () => {
-    if (item.inventory > 0) {
-      fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token
-        },
-        body: JSON.stringify({ inventory: item.inventory - 1 })
-      })
-        .then(res => {
-          if (res.status === 401) {
-            setUser();
-            setToken();
-            sessionStorage.removeItem('user');
-            sessionStorage.removeItem('token');
-          }
-          return res.json();
-        })
-        .then(() => setRefresh(!refresh))
-        .catch(console.error);
-    }
-  }
-
-  const increasePercent = () => {
-
-    if (item.percentRemaining < 100) {
-
-      fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token
-        },
-        body: JSON.stringify({ percentRemaining: 100 })
-      })
-        .then(res => {
-          if (res.status === 401) {
-            setUser();
-            setToken();
-            sessionStorage.removeItem('user');
-            sessionStorage.removeItem('token');
-          }
-          return res.json();
-        })
-        .then(() => setRefresh(!refresh))
-        .catch(console.error);
-    }
-  }
-
-  const decreasePercent = () => {
-    if (item.percentRemaining > 0) {
-      fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token
-        },
-        body: JSON.stringify({ percentRemaining: item.percentRemaining - 5 })
-      })
-        .then(res => {
-          if (res.status === 401) {
-            setUser();
-            setToken();
-            sessionStorage.removeItem('user');
-            sessionStorage.removeItem('token');
-          }
-          return res.json();
-        })
-        .then(() => setRefresh(!refresh))
-        .catch(console.error);
-    }
   }
 
   const generateThreshold = (expiration, threshold) => {
@@ -248,6 +183,9 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
         hoverable
         extra={<Avatar src={item.image || defaultImg} />} >
         <>
+          {visible && (
+            <Alert message={message} type="success" closable afterClose={handleClose} />
+          )}
           <div className='update-card-body' >
 
             <div className='row' >
@@ -255,12 +193,12 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
                 <p>In Stock:</p>
               </div>
               <div className='column'>
-                <p>{item.inventory}</p>
+                <p>{values?.inventory}</p>
               </div>
               <div className='column end' style={{ width: '30%', display: 'flex', justifyContent: 'flex-end' }}>
                 <div className='button-container'>
-                  <Button onClick={decreaseInventory}>➖</Button>
-                  <Button onClick={increaseInventory}>➕</Button>
+                  <Button onClick={() => values.inventory > 0 && setValues({ ...values, inventory: values.inventory - 1 })}>➖</Button>
+                  <Button onClick={() => setValues({ ...values, inventory: values.inventory + 1 })}>➕</Button>
                 </div>
               </div>
             </div>
@@ -270,12 +208,12 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
                 <p>Remaining:</p>
               </div>
               <div className='column'>
-                <p>{item.percentRemaining}%</p>
+                <p>{values?.percentRemaining}%</p>
               </div>
               <div className='column end'>
                 <div className='button-container'>
-                  <Button onClick={decreasePercent}>➖</Button>
-                  <Button onClick={increasePercent}>➕</Button>
+                  <Button onClick={() => values.percentRemaining > 0 && setValues({ ...values, percentRemaining: values.percentRemaining - 5 })}>➖</Button>
+                  <Button onClick={() => setValues({ ...values, percentRemaining: 100 })}>➕</Button>
                 </div>
               </div>
             </div>
@@ -286,7 +224,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
                 <p>Replace By:</p>
               </div>
               <div className='column'>
-                <p>{item.replaceBy}</p>
+                <p>{item?.replaceBy}</p>
               </div>
               <div className='column end'>
                 <Input className='update-card-input' type='date' defaultValue={item?.replaceBy && generateThreshold(item.replaceBy, 0)} onChange={handleDateChange} />
@@ -307,6 +245,11 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
             </div>
 
             <div className='delete-container'>
+              <Button type='text' onClick={(e) => {
+                e.preventDefault();
+                handleUpdate();
+              }}>
+                Save</Button>
               <Button type='text' onClick={(e) => {
                 e.preventDefault();
                 deleteItem(item._id, item.productName)

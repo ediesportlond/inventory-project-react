@@ -21,6 +21,11 @@
   justify-content: flex-end;
 }
 
+.delete-container{
+  display: flex;
+  justify-content: space-between;
+}
+
 .column > .button-container{
   display: flex;
 }
