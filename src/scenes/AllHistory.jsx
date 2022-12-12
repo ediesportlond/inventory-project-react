@@ -46,7 +46,7 @@ export default function AllHistory() {
   }
 
   return (
-    <div className='container'>
+    <div className='container history-list-container'>
       <Nav />
       {visible && (
         <Alert message={message} type="success" closable afterClose={handleClose} />
@@ -61,7 +61,7 @@ export default function AllHistory() {
             </div>
           </>
           : <List
-            header={<h3 style={{ textAlign: 'center' }}>Shopping History</h3>}
+            header={<h2 style={{ textAlign: 'center' }}>Shopping History</h2>}
             bordered
             className='history-list'
             dataSource={list}

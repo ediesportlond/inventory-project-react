@@ -4,7 +4,7 @@ main {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url('../home-page-bg.jpg');
+  background-image: url('../alt-home-bg.jpg');
   background-size: cover;
   background-position: center;
   font-family: system-ui;
@@ -25,8 +25,6 @@ main {
   text-align: center;
   border-radius: 10px;
   background-color: #fff;
-  /* color: white; */
-  /* background-color: #414040e6; */
 }
 
 .login-container> img{
@@ -38,11 +36,11 @@ main {
 }
 
 .login-container>button {
-  background-color: green;
+  background-color: #0794af;
   margin-top: 1.5rem;
   max-width: 170px;
 }
 
 .login-container> button:hover {
-  background-color: rgba(0, 128, 0, 0.452) !important;
+  background-color: #0bbbdf !important;
 }

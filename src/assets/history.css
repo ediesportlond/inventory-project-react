@@ -1,6 +1,11 @@
+.history-list-container{
+  padding-bottom: 30px;
+}
+
 .history-list{
-  margin: 1rem;
+  margin: 1rem auto 1rem auto;
   background-color: #fff;
+  max-width: 700px;
 }
 
 .history-list > .ant-spin-nested-loading > .ant-spin-container > .ant-list-items{

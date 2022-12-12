@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import Footer from '../components/Footer';
 import { Card, List, Skeleton, Checkbox } from 'antd';
 import defaultImg from './default-img.webp';
 import '../assets/guestHistory.css';
+import logo from '../components/logo.png'
 const { Meta } = Card;
 
 
@@ -30,7 +32,7 @@ export default function SingleHistory() {
   return (
     <>
       <nav className='nav-back'>
-        <h1>Shopping List</h1>
+        <img className='guest-nav-logo' src={logo} alt="Stock Up Logo" />
       </nav>
       <div className="container">
         <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
@@ -65,7 +67,7 @@ export default function SingleHistory() {
                 </List.Item>
               )} />
         }
-
+        <Footer />
       </div>
     </>
   )
