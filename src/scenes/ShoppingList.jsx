@@ -90,7 +90,7 @@ export default function ShoppingList() {
               </div>
             </>
             : <>
-              <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
+              <h2 className='estimated-cost'> Estimated Cost ${cost} </h2>
               <List
                 grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }}
                 dataSource={list}

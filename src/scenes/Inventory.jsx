@@ -104,7 +104,7 @@ export default function Inventory() {
                             navigate(`/search/${item.group}`)
                           }}><b>{item.group}</b></Button>
                         </p> : null}
-                        <Progress percent={item.percentRemaining} />
+                        <Progress percent={item.percentRemaining} className={item.percentRemaining < 30 ? 'percent-low' : ''} />
                         <div className='delete-container'>
                           <Button type='text' onClick={(e) => {
                             e.preventDefault();

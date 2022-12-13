@@ -35,7 +35,7 @@ export default function SingleHistory() {
         <img className='guest-nav-logo' src={logo} alt="Stock Up Logo" />
       </nav>
       <div className="container">
-        <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
+        <h2 className='estimated-cost'> Estimated Cost ${cost} </h2>
         {
           !list
             ? <>

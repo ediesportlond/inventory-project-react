@@ -25,8 +25,7 @@ main {
   text-align: center;
   border-radius: 10px;
   background-color: #fff;
-  border: 1px solid lightgrey;
-  box-shadow: 1px 1px 2px gray;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .login-container> img{

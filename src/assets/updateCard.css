@@ -31,6 +31,10 @@
   margin-top: 0.5rem;
 }
 
+.del-update-card-contain button.ant-btn {
+  width: 73px !important;
+}
+
 .column > .button-container{
   display: flex;
 }

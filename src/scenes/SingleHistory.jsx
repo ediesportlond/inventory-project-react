@@ -41,7 +41,7 @@ export default function SingleHistory() {
     <>
       <Nav />
       <div className="container">
-      <h3 className='estimated-cost'> Estimated Cost ${cost} </h3>
+      <h2 className='estimated-cost'> Estimated Cost ${cost} </h2>
       {
           !list
             ? <>

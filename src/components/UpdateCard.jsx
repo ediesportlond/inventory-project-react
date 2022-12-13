@@ -245,13 +245,13 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
             </div>
 
             <div className='delete-container del-update-card-contain'>
-              <Button type='text' onClick={(e) => {
+              <Button  onClick={(e) => {
                 e.preventDefault();
                 handleUpdate();
               }}>
                 Save</Button>
-                <Link to={`/update/${item._id}`}><Button type='text'><EditOutlined /> </Button></Link>
-              <Button type='text' onClick={(e) => {
+                <Link to={`/update/${item._id}`}><Button><EditOutlined /></Button></Link>
+              <Button  onClick={(e) => {
                 e.preventDefault();
                 deleteItem(item._id, item.productName)
               }}>

@@ -30,3 +30,7 @@
 .ant-card-cover{
   margin-top: 0 !important;
 }
+
+.percent-low .ant-progress-bg{
+  background-color: red;
+}
