@@ -7,10 +7,11 @@ import {
 } from 'antd';
 import Nav from '../components/Nav';
 import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import defaultImg from './default-img.webp';
 import '../assets/update.css';
 
 export default function Update() {
-  const { token } = useContext(UserContext);
+  const { token, setUser, setToken } = useContext(UserContext);
   const { oid } = useParams();
 
   const [values, setValues] = useState();
@@ -188,7 +189,15 @@ export default function Update() {
         'Authorization': token
       }
     })
-      .then(res => res.json())
+      .then(res => {
+        if (res.status === 401) {
+          setUser();
+          setToken();
+          sessionStorage.removeItem('user');
+          sessionStorage.removeItem('token');
+        }
+        return res.json();
+      })
       .then((res) => {
         if (typeof res.message === 'object') {
           if (res.message.replaceBy) {
@@ -215,7 +224,7 @@ export default function Update() {
         }
       })
       .catch(console.error);
-  }, [oid, token, setValues])
+  }, [oid, token, setValues, setUser, setToken])
 
   const { Panel } = Collapse
 
@@ -227,11 +236,9 @@ export default function Update() {
           <h1>{values?.productName}</h1>
         </div>
         <div className="product-image-container">
-          {
-            values && values.image
-              ? <img className='product-image' src={values.image} alt={values.productName} />
-              : null
-          }
+
+          <img className='product-image' src={values?.image || defaultImg} alt={values?.productName} />
+
         </div>
 
         {
@@ -240,7 +247,8 @@ export default function Update() {
             <Form className='update-form' onFinish={handleSubmit} layout='vertical'>
 
               <Form.Item label='When do you want to restock?' >
-                <Radio.Group name="type" defaultValue={values?.type} onChange={handleTypeChange} >
+                <Radio.Group name="type" defaultValue={values?.type} onChange={handleTypeChange} 
+                className='type-selector-container'>
                   <Space direction="vertical">
                     <Radio value={"stockable"} >When my shelf is almost empty</Radio>
                     <Radio value={"consumable"} >When the container is running low</Radio>
@@ -263,9 +271,9 @@ export default function Update() {
               </Form.Item>
 
               <Form.Item name='replaceBy'
-                label={`Replace by this date: ${updateValues?.replaceBy ? updateValues.replaceBy : values?.replaceBy ? values.replaceBy : ''}`} 
+                label={`Replace by this date: ${updateValues?.replaceBy ? updateValues.replaceBy : values?.replaceBy ? values.replaceBy : ''}`}
                 rules={values.type === 'perishable' ? [{ required: true, message: "Enter a date" }] : null}
-                >
+              >
                 <Input defaultValue={values?.inventory}
                   type='date'
                   onChange={handleDateChange} />

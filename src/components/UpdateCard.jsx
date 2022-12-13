@@ -179,7 +179,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
 
   return (
     <>
-      <Card className='update-card' title={<Link to={`/update/${item._id}`}><EditOutlined /> {item.productName + (item.brand ? ' - ' + item.brand : '')}</Link>}
+      <Card className='update-card' title={item.productName + (item.brand ? ' - ' + item.brand : '')}
         hoverable
         extra={<Avatar src={item.image || defaultImg} />} >
         <>
@@ -250,6 +250,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
                 handleUpdate();
               }}>
                 Save</Button>
+                <Link to={`/update/${item._id}`}><Button type='text'><EditOutlined /> </Button></Link>
               <Button type='text' onClick={(e) => {
                 e.preventDefault();
                 deleteItem(item._id, item.productName)

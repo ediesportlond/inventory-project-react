@@ -165,6 +165,7 @@ export default function AddNew({ setShowAddNew, setList }) {
   return (
     <>
       <Modal
+        className='add-new-modal'
         title="Add New Item"
         open={true}
         footer={null}
@@ -172,7 +173,8 @@ export default function AddNew({ setShowAddNew, setList }) {
         <Form onFinish={handleSubmit} layout='vertical'>
 
           <Form.Item label='When do you want to restock?' >
-            <Radio.Group name="type" defaultValue={values.type} onChange={handleTypeChange} >
+            <Radio.Group name="type" defaultValue={values.type} onChange={handleTypeChange} 
+            className='type-selector-container'>
               <Space direction="vertical">
                 <Radio value={"stockable"} >When my shelf is almost empty</Radio>
                 <Radio value={"consumable"} >When the container is running low</Radio>

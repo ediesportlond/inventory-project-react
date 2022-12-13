@@ -1,3 +1,7 @@
 .save-form-btn{
   margin-top: 1rem;
 }
+
+.add-new-modal .ant-modal-title{
+  margin-bottom: 1rem;
+}

@@ -28,6 +28,7 @@
 
 .del-update-card-contain{
   justify-content: space-between !important;
+  margin-top: 0.5rem;
 }
 
 .column > .button-container{
