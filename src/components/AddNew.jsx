@@ -290,7 +290,8 @@ export default function AddNew({ setShowAddNew, setList }) {
                     ? 'Reming me when the container is at X%'
                     : 'Remind me X days before the replace by date'
               }</label>
-              <Input name='treshold' type='number' onChange={e => setValues({ ...values, threshold: Number(e.target.value) })}
+              <Input name='treshold' type='number' min='0'
+              onChange={e => setValues({ ...values, threshold: Number(e.target.value) })}
                 placeholder={
                   values.type === 'stockable'
                     ? '1'
