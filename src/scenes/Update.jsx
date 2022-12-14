@@ -51,15 +51,15 @@ export default function Update() {
     const day = hour * 24;
 
     if (isNaN(threshold)) {
-      threshold = Date.parse(values?.replaceBy + ' ') - Date.parse(threshold + ' ');
-
+      threshold = Date.parse(values.replaceBy) - Date.parse(values.threshold);
     } else {
       threshold *= day;  //change threshold days to ms
     }
 
-    expiration = Date.parse(expiration + ' '); //change expiration to ms
-    threshold = expiration - threshold; //subtract days in ms for threshold date
+    expiration = Date.parse(expiration); //change expiration to ms
+    expiration += 18000000
 
+    threshold = expiration - threshold; //subtract days in ms for threshold date
     let d = new Date(threshold);
     d = d.toDateString();
     d = d.replace(/^\w{3}\s/, '');
@@ -104,7 +104,7 @@ export default function Update() {
     }
 
     if (updateValues?.productName) updateValues.productName = updateValues.productName[0].toUpperCase() + updateValues.productName.substring(1,);
-    if (updateValues?.replaceBy) updateValues.replaceBy = new Date(updateValues.replaceBy + ' ').toDateString().replace(/^\w{3}\s/, '');
+    if (updateValues?.replaceBy) updateValues.replaceBy = new Date(Date.parse(updateValues.replaceBy)+ +18000000).toDateString().replace(/^\w{3}\s/, '');
     if (updateValues?.brand) updateValues.brand = updateValues.brand[0].toUpperCase() + updateValues.brand.substring(1,);
     if (updateValues?.group) updateValues.group = updateValues.group[0].toUpperCase() + updateValues.group.substring(1,);
     if (updateValues?.store) updateValues.store = updateValues.store[0].toUpperCase() + updateValues.store.substring(1,);
@@ -160,7 +160,7 @@ export default function Update() {
   const handleDateChange = (e) => {
 
     if (updateValues?.type && updateValues.type === 'perishable') {
-
+      
       const newThreshold = generateThreshold(e.target.value, updateValues.threshold);
       setUpdateValues({ ...updateValues, threshold: newThreshold, replaceBy: e.target.value });
       return;

@@ -61,17 +61,16 @@ export default function AddNew({ setShowAddNew, setList }) {
     const minute = 1000 * 60;
     const hour = minute * 60;
     const day = hour * 24;
-
+  
     if (isNaN(threshold)) {
-      threshold = Date.parse(values?.replaceBy + ' ') - Date.parse(threshold + ' ');
-
+      threshold = Date.parse(expiration) - Date.parse(threshold);
     } else {
       threshold *= day;  //change threshold days to ms
     }
+    expiration = Date.parse(expiration); //change expiration to ms
+    expiration += day;
 
-    expiration = Date.parse(expiration + ' '); //change expiration to ms
     threshold = expiration - threshold; //subtract days in ms for threshold date
-
     let d = new Date(threshold);
     d = d.toDateString();
     d = d.replace(/^\w{3}\s/, '');
@@ -83,7 +82,7 @@ export default function AddNew({ setShowAddNew, setList }) {
     }
 
     const month = months[d.match(/^\w{3}/)];
-    const nums = d.match(/\d+/g);
+    const nums = d.match(/\d+/g); 
     let _day = nums[0];
     let year = nums[1];
     if (_day.length < 2) _day = '0' + _day;
@@ -105,7 +104,8 @@ export default function AddNew({ setShowAddNew, setList }) {
       values.threshold = generateThreshold(values.replaceBy, values.threshold);
     }
     values.productName = values.productName[0].toUpperCase() + values.productName.substring(1,);
-    if (values.replaceBy) values.replaceBy = new Date(values.replaceBy + ' ').toDateString().replace(/^\w{3}\s/, '');
+
+    if (values.replaceBy) values.replaceBy = new Date(Date.parse(values.replaceBy)+ +18000000).toDateString().replace(/^\w{3}\s/, '');
     if (values.brand) values.brand = values.brand[0].toUpperCase() + values.brand.substring(1,);
     if (values.group) values.group = values.group[0].toUpperCase() + values.group.substring(1,);
     if (values.store) values.store = values.store[0].toUpperCase() + values.store.substring(1,);
@@ -143,6 +143,7 @@ export default function AddNew({ setShowAddNew, setList }) {
     }
 
   };
+
   const increase = () => {
     let newPercent = percent + 5;
     if (newPercent > 100) {
@@ -151,6 +152,7 @@ export default function AddNew({ setShowAddNew, setList }) {
     setPercent(newPercent);
     setValues({ ...values, percentRemaining: newPercent });
   };
+
   const decline = () => {
     let newPercent = percent - 5;
     if (newPercent < 0) {

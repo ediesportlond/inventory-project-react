@@ -48,15 +48,16 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
     const day = hour * 24;
 
     if (isNaN(threshold)) {
-      threshold = Date.parse(item?.replaceBy + ' ') - Date.parse(threshold + ' ');
-
+      threshold = Date.parse(item.replaceBy) - Date.parse(item.threshold);
+      threshold -= 18000000;
     } else {
       threshold *= day;  //change threshold days to ms
     }
 
-    expiration = Date.parse(expiration + ' '); //change expiration to ms
-    threshold = expiration - threshold; //subtract days in ms for threshold date
+    expiration = Date.parse(expiration); //change expiration to ms
+    expiration += 18000000;
 
+    threshold = expiration - threshold; //subtract days in ms for threshold date
     let d = new Date(threshold);
     d = d.toDateString();
     d = d.replace(/^\w{3}\s/, '');
@@ -82,8 +83,8 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
     if (item.type === 'perishable') {
 
       const newThreshold = generateThreshold(value, item.threshold);
-
-      const newDate = new Date(value + ' ').toDateString().replace(/^\w{3}\s/, '');
+      console.log(newThreshold)
+      const newDate = new Date(Date.parse(value) +18000000).toDateString().replace(/^\w{3}\s/, '');
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
         method: 'PATCH',
         headers: {
@@ -105,7 +106,7 @@ export default function UpdateCard({ item, refresh, setRefresh }) {
         .catch(console.error);
     } else {
 
-      const newDate = new Date(value + ' ').toDateString().replace(/^\w{3}\s/, '');
+      const newDate = new Date(Date.parse(value) +18000000).toDateString().replace(/^\w{3}\s/, '');
       fetch(`${process.env.REACT_APP_ENDPOINT}/inventory/update/${item._id}`, {
         method: 'PATCH',
         headers: {
