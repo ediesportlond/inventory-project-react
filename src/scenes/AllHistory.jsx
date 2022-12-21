@@ -40,7 +40,8 @@ export default function AllHistory() {
   }, [token, setToken, setUser])
 
   const copyLink = (id) => {
-    navigator.clipboard.writeText(`https://www.stockup-app.com/view/${id}`);
+    const link = String(`https://www.stockup-app.com/view/${id}`)
+    navigator.clipboard.writeText(link);
     setVisible(true);
     setMessage(`Your sharing link has been copied to your clipboard: https://www.stockup-app.com/view/${id}`);
   }
