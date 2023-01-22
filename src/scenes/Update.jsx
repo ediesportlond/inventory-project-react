@@ -363,7 +363,7 @@ export default function Update() {
                     values?.type === 'stockable'
                       ? 'Remind me when I only have X units left'
                       : values?.type === 'consumable'
-                        ? 'Reming me when the container is at X%'
+                        ? 'Remind me when the container is at X%'
                         : 'Remind me X days before the replace by date'
                   }</label>
                   <Input name='treshold'
